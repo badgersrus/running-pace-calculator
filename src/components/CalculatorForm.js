@@ -17,26 +17,27 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1)
     },
     form: {
-        width: '100%', // Fix IE 11 issue.
+        width: '100%', 
         marginTop: theme.spacing(3),
-        display: 'flex'
     },
     submit: {
+        backgroundColor: "#ffa64d",
+        color: "white",
         margin: theme.spacing(3, 0, 2),
-    },
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    margin: {
-        margin: theme.spacing(1),
-    },
-    withoutLabel: {
-        marginTop: theme.spacing(3),
-    },
-    textField: {
-        width: '25ch',
-    },
+    }
+    // root: {
+    //     display: 'flex',
+    //     flexWrap: 'wrap',
+    // },
+    // // margin: {
+    //     margin: theme.spacing(1),
+    // },
+    // withoutLabel: {
+    //     marginTop: theme.spacing(3),
+    // },
+    // textField: {
+    //     width: '25ch',
+    // },
 }));
 
 function CalculatorForm() {
@@ -62,7 +63,6 @@ function CalculatorForm() {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        color="primary"
                         className={classes.submit}>
                         Calculate
                     </Button>

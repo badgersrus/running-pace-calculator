@@ -1,20 +1,20 @@
 import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
-
+import { Container, Box, MuiThemeProvider, CssBaseline } from "@material-ui/core";
 import Copyright from './components/Copyright'
 import CalculatorForm from './components/CalculatorForm';
+import theme from "./theme";
 
 function App() {
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <CalculatorForm />
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </Container>
+    <MuiThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <CalculatorForm />
+        <Box mt={8}>
+          <Copyright />
+        </Box>
+      </Container>
+     </MuiThemeProvider>
   );
 }
 
