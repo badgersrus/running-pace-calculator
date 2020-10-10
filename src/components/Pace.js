@@ -5,11 +5,11 @@ import { ADD_PACE_MINUTES, ADD_PACE_SECONDS, ADD_PACE_UNITS } from '../calculati
 
 const paceUnits = [
     {
-        value: "km",
+        value: "kilometers",
         label: "km"
     },
     {
-        value: "mile",
+        value: "miles",
         label: "mile"
     },
 ]
@@ -17,6 +17,10 @@ const paceUnits = [
 function Pace() {
     const { state, dispatch } = useContext(CalculationContext)
 
+    React.useEffect(() => {
+
+    }, [state])
+    
     const handleAddPaceMinutes = (event) => {
         dispatch({ 
             type: ADD_PACE_MINUTES, 
@@ -40,18 +44,19 @@ function Pace() {
             <Grid item xs="3" align="center" style={{ display: 'flex' }}>
                 <Input 
                     placeholder="04" 
+                    value={state.paceMinutes}
                     inputProps={{ 'aria-label': 'description' }} 
                     onChange={handleAddPaceMinutes}/>
             </Grid>
             <Grid item xs="3" align="center" style={{ display: 'flex' }}>
                 <Input 
                     placeholder="30" 
+                    value={state.paceSeconds}
                     inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddPaceSeconds}/>
             </Grid>
             <Grid alignItems="center" item xs="3" style={{ display: 'flex' }}>
                 <TextField
-                    id="standard-select-currency"
                     select
                     label="Units"
                     value={state.paceUnits}

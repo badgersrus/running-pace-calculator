@@ -7,6 +7,7 @@ import Distance from './Distance';
 import Pace from './Pace';
 import Time from './Time'
 import { CalculationContext } from '../App';
+import { ADD_PACE_SECONDS, ADD_PACE_MINUTES } from '../calculationReducer';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1)
     },
     form: {
-        width: '100%', 
+        width: '100%',
         marginTop: theme.spacing(3),
     },
     submit: {
@@ -29,19 +30,56 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CalculatorForm() {
-    const { state } = useContext(CalculationContext)
+    const { state, dispatch } = useContext(CalculationContext)
     const [showResults, setShowResults] = useState(false)
     const classes = useStyles();
-    
-    function calculate() {
-        setShowResults(true)
-        console.log(state.distance)
 
+    function getDistanceForUnits() {
+        switch (state.paceUnits) {
+            case "kilometers": {
+                return state.distanceUnits === 'kilometers' ? state.distance :
+                    state.distanceUnits === 'meters' ? state.distance / 1000 :
+                        Math.floor(state.distance * 1.60934)
+            }
+            case "miles": {
+                return state.distanceUnits === 'kilometers' ? Math.floor(state.distance / 1.60945) :
+                    state.distanceUnits === 'meters' ? Math.floor((state.distance / 1000) / 1.60945) :
+                        state.distance * 1
+
+            }
+            default:
+                return null
+        }
+    }
+
+
+    function calculate() {
+        let intHours = parseInt(state.hours)
+        let intMins = parseInt(state.minutes)
+        let intSecs = parseInt(state.seconds)
+
+        let totalSeconds = (intHours * 3600) + (intMins * 60) + intSecs
+        let distance = getDistanceForUnits()
+        let secondsPerKm = Math.floor(totalSeconds / distance)
+        let paceMins = Math.floor(secondsPerKm % 3600 / 60);
+        var paceSecs = Math.floor(secondsPerKm % 3600 % 60);
+
+        dispatch({
+            type: ADD_PACE_MINUTES,
+            payload: { paceMinutes: paceMins }
+        });
+
+        dispatch({
+            type: ADD_PACE_SECONDS,
+            payload: { paceSeconds: paceSecs }
+        });
+
+        setShowResults(true)
     }
 
     return (
         <div className={classes.paper}>
-            <Typography component="h1" variant="h5" justify="center">
+            <Typography component="h1" variant="h5" >
                 Calculate your pace
             </Typography>
             <form className={classes.form} noValidate>
@@ -63,9 +101,9 @@ function CalculatorForm() {
                         onClick={() => calculate()}>
                         Calculate
                     </Button>
-                    <Grid item xs="12">
-                        {showResults ? 
-                         <div>
+                    {/* <Grid item xs="12">
+                        {showResults ?
+                            <div>
                                 <p>Hours: {state.hours}</p>
                                 <p>Minutes: {state.minutes}</p>
                                 <p>Seconds: {state.seconds}</p>
@@ -76,9 +114,9 @@ function CalculatorForm() {
                                 <p>Pace Minutes: {state.paceMinutes}</p>
                                 <p>Pace Seconds: {state.paceSeconds}</p>
                                 <p>Pace Units: {state.paceUnits}</p>
-                         </div> : null}
-                    </Grid>
-                 </Grid>
+                            </div> : null}
+                    </Grid> */}
+                </Grid>
             </form>
         </div>
     );

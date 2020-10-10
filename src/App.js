@@ -12,7 +12,7 @@ const initialState = {
       distanceUnits: "kilometers",
       paceMinutes: 0,
       paceSeconds: 0,
-      paceUnits: "km"
+      paceUnits: "kilometers"
   }
 
 export const CalculationContext = createContext()
