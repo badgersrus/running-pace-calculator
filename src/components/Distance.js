@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Grid, Input, TextField, MenuItem } from '@material-ui/core/';
+import { CalculationContext } from '../App';
+import { ADD_DISTANCE, ADD_DISTANCE_UNITS } from '../calculationReducer'
 
 const distanceMetric = [
     {
@@ -17,42 +19,41 @@ const distanceMetric = [
 ]
 
 function Distance() {
-    const [units, setUnits] = React.useState('kilometers');
-    const [distance, setDistance] = useState('')
+    const { state, dispatch } = useContext(CalculationContext)
 
-    const handleChange = (event) => {
-        setUnits(event.target.value);
-    };
-    
+    const handleAddDistance = (event) => {
+        dispatch({ 
+            type: ADD_DISTANCE, 
+            payload: { distance: event.target.value } });
+    }
+    const handleAddDistanceUnits = (event) => {
+        dispatch({ 
+            type: ADD_DISTANCE_UNITS, 
+            payload: { distanceUnits: event.target.value } });
+    }
+
+
     return (
         <Grid container spacing='1' justify="center">
             <Grid item xs="4" align="center" style={{ display: 'flex' }}>
                 <Input 
                     placeholder="Distance" 
                     inputProps={{ 'aria-label': 'description' }} 
-                    onChange={event => setDistance(event.target.value)}/>
+                    onChange={handleAddDistance}/>
             </Grid>
             <Grid item xs="3">
                 <TextField
                     id="standard-select-currency"
                     select
                     label="Units"
-                    value={units}
-                    onChange={handleChange}>
+                    value={state.distanceUnits}
+                    onChange={handleAddDistanceUnits}>
                     {distanceMetric.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
                             {option.label}
                         </MenuItem>
                     ))}
                 </TextField>
-            </Grid>
-            <Grid item xs={6} align="center">
-            <div>
-                Distance: {distance}
-            </div>
-            <div>
-                Units: {units}
-            </div>
             </Grid>
         </Grid>
         

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Distance from './Distance';
 import Pace from './Pace';
 import Time from './Time'
+import { CalculationContext } from '../App';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,27 +26,22 @@ const useStyles = makeStyles((theme) => ({
         color: "white",
         margin: theme.spacing(3, 0, 2),
     }
-    // root: {
-    //     display: 'flex',
-    //     flexWrap: 'wrap',
-    // },
-    // // margin: {
-    //     margin: theme.spacing(1),
-    // },
-    // withoutLabel: {
-    //     marginTop: theme.spacing(3),
-    // },
-    // textField: {
-    //     width: '25ch',
-    // },
 }));
 
 function CalculatorForm() {
+    const { state } = useContext(CalculationContext)
+    const [showResults, setShowResults] = useState(false)
     const classes = useStyles();
+    
+    function calculate() {
+        setShowResults(true)
+        console.log(state.distance)
+
+    }
 
     return (
         <div className={classes.paper}>
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" justify="center">
                 Calculate your pace
             </Typography>
             <form className={classes.form} noValidate>
@@ -60,12 +56,28 @@ function CalculatorForm() {
                         <Pace />
                     </Grid>
                     <Button
-                        type="submit"
+                        // type="submit"
                         fullWidth
                         variant="contained"
-                        className={classes.submit}>
+                        className={classes.submit}
+                        onClick={() => calculate()}>
                         Calculate
                     </Button>
+                    <Grid item xs="12">
+                        {showResults ? 
+                         <div>
+                                <p>Hours: {state.hours}</p>
+                                <p>Minutes: {state.minutes}</p>
+                                <p>Seconds: {state.seconds}</p>
+
+                                <p>Distance: {state.distance}</p>
+                                <p>Distance units: {state.distanceUnits}</p>
+
+                                <p>Pace Minutes: {state.paceMinutes}</p>
+                                <p>Pace Seconds: {state.paceSeconds}</p>
+                                <p>Pace Units: {state.paceUnits}</p>
+                         </div> : null}
+                    </Grid>
                  </Grid>
             </form>
         </div>

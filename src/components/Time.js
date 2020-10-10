@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useContext} from 'react';
 import { Grid, Input } from '@material-ui/core/';
+import { CalculationContext } from '../App';
+import { ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS } from '../calculationReducer'
 
 function Time() {
-    const [hours, setHours] = React.useState(0)
-    const [minutes, setMinutes] = React.useState(0)
-    const [seconds, setSeconds] = React.useState(0)
+    const { dispatch } = useContext(CalculationContext)
+    
+    const handleAddHours = (event) => {
+        dispatch({ 
+            type: ADD_TIME_HOURS, 
+            payload: { hours: event.target.value } });
+    }
+
+    const handleAddMinutes = (event) => {
+        dispatch({ 
+            type: ADD_TIME_MINUTES, 
+            payload: { minutes: event.target.value } });
+    }
+
+    const handleAddSeconds = (event) => {
+        dispatch({ 
+            type: ADD_TIME_SECONDS, 
+            payload: { seconds: event.target.value } });
+    }
 
     return (
         <Grid container spacing='1' justify="center">
@@ -12,33 +30,24 @@ function Time() {
                 <Input
                     id="time-hours"
                     placeholder="Hours"
-                    inputProps={{ 'aria-label': 'description' }}
-                    onChange={event => setHours(event.target.value)} />
+                    inputProps={{ 'aria-label': 'description', 'max':'2' }}
+                    onChange={handleAddHours} />
+
             </Grid>
             <Grid item xs="3" align="center">
                 <Input
                     id="time-mins"
                     placeholder="Minutes"
-                    inputProps={{ 'aria-label': 'description' }}
-                    onChange={event => setMinutes(event.target.value)} />
+                    inputProps={{ 'aria-label': 'description', 'max':'2' }}
+                    onChange={handleAddMinutes} 
+                    />
             </Grid>
             <Grid item xs="3" align="center">
                 <Input
                     id="time-seconds"
                     placeholder="Seconds"
                     inputProps={{ 'aria-label': 'description' }}
-                    onChange={event => setSeconds(event.target.value)} />
-            </Grid>
-            <Grid item xs={6} align="center">
-                <div>
-                    Hours: {hours}
-                </div>
-                <div>
-                    Mins: {minutes}
-                </div>
-                <div>
-                    Secs: {seconds}
-                </div>
+                    onChange={handleAddSeconds} />
             </Grid>
         </Grid>
     )
