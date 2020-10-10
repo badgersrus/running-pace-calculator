@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -43,7 +43,7 @@ function CalculatorForm() {
             case "miles": {
                 return state.distanceUnits === 'kilometers' ? Math.floor(state.distance / 1.60945) :
                     state.distanceUnits === 'meters' ? Math.floor((state.distance / 1000) / 1.60945) :
-                        state.distance * 1
+                        state.distance
 
             }
             default:
@@ -54,6 +54,13 @@ function CalculatorForm() {
     function getPaceInSeconds() {
         return parseInt(state.paceMinutes * 60 ) + parseInt(state.paceSeconds)
     }
+
+    // eslint-disable-next-line no-extend-native
+    Number.prototype.pad = function(size) {
+        var s = String(this);
+        while (s.length < (size || 2)) {s = "0" + s;}
+        return s;
+      }
 
     function calculatePace() {
         console.log("Calculating pace")
@@ -66,7 +73,15 @@ function CalculatorForm() {
         let distance = getDistanceForUnits()
         let secondsPerKm = Math.floor(totalSeconds / distance)
         let paceMins = Math.floor(secondsPerKm % 3600 / 60);
-        var paceSecs = Math.floor(secondsPerKm % 3600 % 60);
+        var paceSecs = Math.floor((secondsPerKm % 3600 )% 60);
+
+        paceSecs <= 9 ? String(paceSecs).padStart(0) : String(paceSecs)
+        if (paceSecs <= 9) {
+            var formattedNumber = ("0" + paceSecs).slice(-2);
+            console.log(formattedNumber);
+        }
+        console.log("paceSecs")
+        console.log(paceSecs)
 
         dispatch({
             type: ADD_PACE_MINUTES,
