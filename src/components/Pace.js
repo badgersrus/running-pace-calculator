@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Grid, Input, TextField, MenuItem } from '@material-ui/core/';
 import { CalculationContext } from '../App';
 import { ADD_PACE_MINUTES, ADD_PACE_SECONDS, ADD_PACE_UNITS } from '../calculationReducer'
@@ -17,43 +17,52 @@ const paceUnits = [
 function Pace() {
     const { state, dispatch } = useContext(CalculationContext)
 
-    React.useEffect(() => {
+    useEffect(() => {
 
     }, [state])
-    
+
     const handleAddPaceMinutes = (event) => {
-        dispatch({ 
-            type: ADD_PACE_MINUTES, 
-            payload: { paceMinutes: event.target.value } });
+        dispatch({
+            type: ADD_PACE_MINUTES,
+            payload: {
+                paceMinutes: event.target.value,
+                isPaceSet: true
+            }
+        });
     }
 
     const handleAddPaceSeconds = (event) => {
-        dispatch({ 
-            type: ADD_PACE_SECONDS, 
-            payload: { paceSeconds: event.target.value } });
+        dispatch({
+            type: ADD_PACE_SECONDS,
+            payload: {
+                paceSeconds: event.target.value,
+                isPaceSet: true
+            }
+        });
     }
 
     const handleAddPaceUnits = (event) => {
-        dispatch({ 
-            type: ADD_PACE_UNITS, 
-            payload: { paceUnits: event.target.value } });
+        dispatch({
+            type: ADD_PACE_UNITS,
+            payload: { paceUnits: event.target.value }
+        });
     }
 
     return (
         <Grid container spacing='1' justify="center">
             <Grid item xs="3" align="center" style={{ display: 'flex' }}>
-                <Input 
-                    placeholder="04" 
+                <Input
+                    placeholder="04"
                     value={state.paceMinutes}
-                    inputProps={{ 'aria-label': 'description' }} 
-                    onChange={handleAddPaceMinutes}/>
+                    inputProps={{ 'aria-label': 'description' }}
+                    onChange={handleAddPaceMinutes} />
             </Grid>
             <Grid item xs="3" align="center" style={{ display: 'flex' }}>
-                <Input 
-                    placeholder="30" 
+                <Input
+                    placeholder="30"
                     value={state.paceSeconds}
                     inputProps={{ 'aria-label': 'description' }}
-                    onChange={handleAddPaceSeconds}/>
+                    onChange={handleAddPaceSeconds} />
             </Grid>
             <Grid alignItems="center" item xs="3" style={{ display: 'flex' }}>
                 <TextField

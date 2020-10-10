@@ -7,7 +7,7 @@ import Distance from './Distance';
 import Pace from './Pace';
 import Time from './Time'
 import { CalculationContext } from '../App';
-import { ADD_PACE_SECONDS, ADD_PACE_MINUTES } from '../calculationReducer';
+import { ADD_PACE_SECONDS, ADD_PACE_MINUTES, ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, ADD_DISTANCE_UNITS, ADD_DISTANCE } from '../calculationReducer';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 
 function CalculatorForm() {
     const { state, dispatch } = useContext(CalculationContext)
-    const [showResults, setShowResults] = useState(false)
     const classes = useStyles();
 
     function getDistanceForUnits() {
@@ -52,8 +51,10 @@ function CalculatorForm() {
         }
     }
 
+    function calculatePace() {
+        console.log("Calculating pace")
 
-    function calculate() {
+
         let intHours = parseInt(state.hours)
         let intMins = parseInt(state.minutes)
         let intSecs = parseInt(state.seconds)
@@ -73,8 +74,60 @@ function CalculatorForm() {
             type: ADD_PACE_SECONDS,
             payload: { paceSeconds: paceSecs }
         });
+    }
 
-        setShowResults(true)
+    function calculateTime() {
+        console.log("Calculating time")
+        // let intHours = parseInt(state.hours)
+        // let intMins = parseInt(state.minutes)
+        // let intSecs = parseInt(state.seconds)
+
+        // let totalSeconds = (intHours * 3600) + (intMins * 60) + intSecs
+        let distance = getDistanceForUnits()
+        // let secondsPerKm = Math.floor(totalSeconds / distance)
+        // let paceMins = Math.floor(secondsPerKm % 3600 / 60);
+        // var paceSecs = Math.floor(secondsPerKm % 3600 % 60);
+
+        // dispatch({
+        //     type: ADD_TIME_HOURS,
+        //     payload: { hours: paceMins }
+        // });
+
+        // dispatch({
+        //     type: ADD_TIME_MINUTES,
+        //     payload: { minutes: paceMins }
+        // });
+
+        // dispatch({
+        //     type: ADD_TIME_SECONDS,
+        //     payload: { seconds: paceSecs }
+        // });
+    }
+
+    function calculateDistance() {
+        console.log("Calculating distance")
+
+        // let intHours = parseInt(state.hours)
+        // let intMins = parseInt(state.minutes)
+        // let intSecs = parseInt(state.seconds)
+
+        // let totalSeconds = (intHours * 3600) + (intMins * 60) + intSecs
+        // let distance = getDistanceForUnits()
+        // let secondsPerKm = Math.floor(totalSeconds / distance)
+        // let paceMins = Math.floor(secondsPerKm % 3600 / 60);
+        // var paceSecs = Math.floor(secondsPerKm % 3600 % 60);
+
+        // dispatch({
+        //     type: ADD_DISTANCE,
+        //     payload: { distance: paceMins }
+        // });
+    }
+
+    function calculate() {
+        state.isTimeSet && state.isDistanceSet ? calculatePace() :
+            state.isDistanceSet && state.isPaceSet ? calculateTime() :
+                state.isPaceSet && state.isTimeSet ? calculateDistance() :
+                    console.log("ERROR")
     }
 
     return (
@@ -94,28 +147,12 @@ function CalculatorForm() {
                         <Pace />
                     </Grid>
                     <Button
-                        // type="submit"
                         fullWidth
                         variant="contained"
                         className={classes.submit}
                         onClick={() => calculate()}>
                         Calculate
                     </Button>
-                    {/* <Grid item xs="12">
-                        {showResults ?
-                            <div>
-                                <p>Hours: {state.hours}</p>
-                                <p>Minutes: {state.minutes}</p>
-                                <p>Seconds: {state.seconds}</p>
-
-                                <p>Distance: {state.distance}</p>
-                                <p>Distance units: {state.distanceUnits}</p>
-
-                                <p>Pace Minutes: {state.paceMinutes}</p>
-                                <p>Pace Seconds: {state.paceSeconds}</p>
-                                <p>Pace Units: {state.paceUnits}</p>
-                            </div> : null}
-                    </Grid> */}
                 </Grid>
             </form>
         </div>

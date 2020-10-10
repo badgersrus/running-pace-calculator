@@ -5,15 +5,18 @@ import CalculatorForm from './components/CalculatorForm';
 import calculationReducer from './calculationReducer';
 
 const initialState = {
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
-      distance: 0,
-      distanceUnits: "kilometers",
-      paceMinutes: 0,
-      paceSeconds: 0,
-      paceUnits: "kilometers"
-  }
+  hours: 0,
+  minutes: 0,
+  seconds: 0,
+  isTimeSet: false,
+  distance: 0,
+  distanceUnits: "kilometers",
+  isDistanceSet: false,
+  paceMinutes: 0,
+  paceSeconds: 0,
+  paceUnits: "kilometers",
+  isPaceSet: false
+}
 
 export const CalculationContext = createContext()
 

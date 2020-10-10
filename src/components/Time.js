@@ -9,19 +9,24 @@ function Time() {
     const handleAddHours = (event) => {
         dispatch({ 
             type: ADD_TIME_HOURS, 
-            payload: { hours: event.target.value } });
+            payload: { 
+                hours: event.target.value,
+                isTimeSet: true
+            } });
     }
 
     const handleAddMinutes = (event) => {
         dispatch({ 
             type: ADD_TIME_MINUTES, 
-            payload: { minutes: event.target.value } });
+            payload: { minutes: event.target.value,
+                isTimeSet: true } });
     }
 
     const handleAddSeconds = (event) => {
         dispatch({ 
             type: ADD_TIME_SECONDS, 
-            payload: { seconds: event.target.value } });
+            payload: { seconds: event.target.value,
+                isTimeSet: true } });
     }
 
     return (

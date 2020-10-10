@@ -24,7 +24,8 @@ function Distance() {
     const handleAddDistance = (event) => {
         dispatch({ 
             type: ADD_DISTANCE, 
-            payload: { distance: event.target.value } });
+            payload: { distance: event.target.value,
+                isDistanceSet: true } });
     }
     const handleAddDistanceUnits = (event) => {
         dispatch({ 

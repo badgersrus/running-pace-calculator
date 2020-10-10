@@ -12,25 +12,29 @@ function calculationReducer(state, action) {
         case ADD_TIME_HOURS: {
             return { 
                 ...state, 
-                hours: action.payload.hours
+                hours: action.payload.hours, 
+                isTimeSet: action.payload.isTimeSet
             }
         }
         case ADD_TIME_MINUTES: {
             return { 
                 ...state, 
-                minutes: action.payload.minutes
+                minutes: action.payload.minutes, 
+                isTimeSet: true
             }
         }
         case ADD_TIME_SECONDS: {
             return { 
                 ...state, 
-                seconds: action.payload.seconds
+                seconds: action.payload.seconds, 
+                isTimeSet: true
             }
         }
         case ADD_DISTANCE: {
             return { 
                 ...state, 
-                distance: action.payload.distance
+                distance: action.payload.distance, 
+                isDistanceSet: true
             }
         }
         case ADD_DISTANCE_UNITS: {
@@ -42,13 +46,15 @@ function calculationReducer(state, action) {
         case ADD_PACE_MINUTES: {
             return { 
                 ...state, 
-                paceMinutes: action.payload.paceMinutes
+                paceMinutes: action.payload.paceMinutes, 
+                isPaceSet: true
             }
         }
         case ADD_PACE_SECONDS: {
             return { 
                 ...state, 
-                paceSeconds: action.payload.paceSeconds
+                paceSeconds: action.payload.paceSeconds, 
+                isPaceSet: true
             }
         }
         case ADD_PACE_UNITS: {
@@ -60,8 +66,6 @@ function calculationReducer(state, action) {
         default:
             return state;
     }
-
-
 }
 
 export default calculationReducer
