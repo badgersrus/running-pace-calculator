@@ -17,10 +17,6 @@ const paceUnits = [
 function Pace() {
     const { state, dispatch } = useContext(CalculationContext)
 
-    useEffect(() => {
-
-    }, [state])
-
     const handleAddPaceMinutes = (event) => {
         dispatch({
             type: ADD_PACE_MINUTES,

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -51,9 +51,12 @@ function CalculatorForm() {
         }
     }
 
+    function getPaceInSeconds() {
+        return parseInt(state.paceMinutes * 60 ) + parseInt(state.paceSeconds)
+    }
+
     function calculatePace() {
         console.log("Calculating pace")
-
 
         let intHours = parseInt(state.hours)
         let intMins = parseInt(state.minutes)
@@ -78,30 +81,28 @@ function CalculatorForm() {
 
     function calculateTime() {
         console.log("Calculating time")
-        // let intHours = parseInt(state.hours)
-        // let intMins = parseInt(state.minutes)
-        // let intSecs = parseInt(state.seconds)
-
-        // let totalSeconds = (intHours * 3600) + (intMins * 60) + intSecs
         let distance = getDistanceForUnits()
-        // let secondsPerKm = Math.floor(totalSeconds / distance)
-        // let paceMins = Math.floor(secondsPerKm % 3600 / 60);
-        // var paceSecs = Math.floor(secondsPerKm % 3600 % 60);
+        let paceInSeconds = getPaceInSeconds()
 
-        // dispatch({
-        //     type: ADD_TIME_HOURS,
-        //     payload: { hours: paceMins }
-        // });
+        let totalSeconds = distance * paceInSeconds
+        var hours = Math.floor(totalSeconds / 3600);
+        var mins = Math.floor(totalSeconds % 3600 / 60);
+        var secs = Math.floor(totalSeconds % 3600 % 60);
 
-        // dispatch({
-        //     type: ADD_TIME_MINUTES,
-        //     payload: { minutes: paceMins }
-        // });
+        dispatch({
+            type: ADD_TIME_HOURS,
+            payload: { hours: hours }
+        });
 
-        // dispatch({
-        //     type: ADD_TIME_SECONDS,
-        //     payload: { seconds: paceSecs }
-        // });
+        dispatch({
+            type: ADD_TIME_MINUTES,
+            payload: { minutes: mins }
+        });
+
+        dispatch({
+            type: ADD_TIME_SECONDS,
+            payload: { seconds: secs }
+        });
     }
 
     function calculateDistance() {
@@ -133,7 +134,7 @@ function CalculatorForm() {
     return (
         <div className={classes.paper}>
             <Typography component="h1" variant="h5" >
-                Calculate your pace
+                Calculate your stuff
             </Typography>
             <form className={classes.form} noValidate>
                 <Grid container spacing='5'>

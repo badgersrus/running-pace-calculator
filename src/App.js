@@ -3,6 +3,7 @@ import { Container, Box, CssBaseline } from "@material-ui/core";
 import Copyright from './components/Copyright'
 import CalculatorForm from './components/CalculatorForm';
 import calculationReducer from './calculationReducer';
+import UnitSpinner from './components/UnitSpinner';
 
 const initialState = {
   hours: 0,
@@ -28,7 +29,10 @@ function App() {
       <CalculationContext.Provider value={{ state, dispatch }}>
         <CssBaseline />
         <CalculatorForm />
-        <Box mt={8}>
+        <Box mt={5}>
+          <UnitSpinner />
+        </Box>
+        <Box mt={5}>
           <Copyright />
         </Box>
       </CalculationContext.Provider>

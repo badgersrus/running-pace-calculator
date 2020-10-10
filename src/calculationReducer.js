@@ -20,21 +20,21 @@ function calculationReducer(state, action) {
             return { 
                 ...state, 
                 minutes: action.payload.minutes, 
-                isTimeSet: true
+                isTimeSet: action.payload.isTimeSet
             }
         }
         case ADD_TIME_SECONDS: {
             return { 
                 ...state, 
                 seconds: action.payload.seconds, 
-                isTimeSet: true
+                isTimeSet: action.payload.isTimeSet
             }
         }
         case ADD_DISTANCE: {
             return { 
                 ...state, 
                 distance: action.payload.distance, 
-                isDistanceSet: true
+                isDistanceSet: action.payload.isDistanceSet
             }
         }
         case ADD_DISTANCE_UNITS: {
@@ -47,14 +47,14 @@ function calculationReducer(state, action) {
             return { 
                 ...state, 
                 paceMinutes: action.payload.paceMinutes, 
-                isPaceSet: true
+                isPaceSet: action.payload.isPaceSet
             }
         }
         case ADD_PACE_SECONDS: {
             return { 
                 ...state, 
                 paceSeconds: action.payload.paceSeconds, 
-                isPaceSet: true
+                isPaceSet: action.payload.isPaceSet
             }
         }
         case ADD_PACE_UNITS: {
