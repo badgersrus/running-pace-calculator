@@ -27,7 +27,6 @@ function Pace() {
                 }
             })
         }
-    // eslint-disable-next-line 
     }, [state.paceMinutes, state.paceSeconds])
 
     const handleAddPaceMinutes = (event) => {

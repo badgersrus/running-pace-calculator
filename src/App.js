@@ -6,9 +6,9 @@ import UnitSpinner from './components/UnitSpinner';
 import Calculator from './components/Calculator';
 
 const initialState = {
-  hours: "",
-  minutes: "",
-  seconds: "",
+  hours: 0,
+  minutes: 0,
+  seconds: 0,
   isTimeSet: false,
   distance: "",
   distanceUnits: "kilometers",
