@@ -1,7 +1,5 @@
-import React, { useContext } from 'react';
-import { Grid, Input, TextField, MenuItem } from '@material-ui/core/';
-import { CalculationContext } from '../App';
-import { ADD_DISTANCE, ADD_DISTANCE_UNITS } from '../calculationReducer'
+import { Grid } from '@material-ui/core/';
+import React from 'react';
 
 function UnitSpinner() {
 
@@ -10,9 +8,17 @@ function UnitSpinner() {
         <Grid container spacing='1' justify="center">
             <Grid item xs="4" align="center" style={{ display: 'flex' }}>
                 <div>UNIT SPINNER</div>
+                {units.map((conversion, index) => {
+                    return (<>
+                        {/* <a>{conversion.km}</a>
+                        <a>{conversion.mile}</a> */}
+                    </>
+                    )
+
+                })}
             </Grid>
         </Grid>
-        
+
     )
 }
 

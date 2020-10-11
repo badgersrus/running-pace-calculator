@@ -1,16 +1,16 @@
 import React, { createContext, useReducer } from 'react';
 import { Container, Box, CssBaseline } from "@material-ui/core";
 import Copyright from './components/Copyright'
-import CalculatorForm from './components/CalculatorForm';
 import calculationReducer from './calculationReducer';
 import UnitSpinner from './components/UnitSpinner';
+import Calculator from './components/Calculator';
 
 const initialState = {
-  hours: 0,
-  minutes: 0,
-  seconds: 0,
+  hours: "",
+  minutes: "",
+  seconds: "",
   isTimeSet: false,
-  distance: 0,
+  distance: "",
   distanceUnits: "kilometers",
   isDistanceSet: false,
   paceMinutes: 0,
@@ -28,7 +28,7 @@ function App() {
     <Container component="main" maxWidth="xs">
       <CalculationContext.Provider value={{ state, dispatch }}>
         <CssBaseline />
-        <CalculatorForm />
+        <Calculator />
         <Box mt={5}>
           <UnitSpinner />
         </Box>

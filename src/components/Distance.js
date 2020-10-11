@@ -3,21 +3,6 @@ import { Grid, Input, TextField, MenuItem } from '@material-ui/core/';
 import { CalculationContext } from '../App';
 import { ADD_DISTANCE, ADD_DISTANCE_UNITS } from '../calculationReducer'
 
-const distanceMetric = [
-    {
-        value: 'meters',
-        label: "Meters"
-    },
-    {
-        value: 'kilometers',
-        label: "km"
-    },
-    {
-        value: 'miles',
-        label: "Miles"
-    },
-]
-
 function Distance() {
     const { state, dispatch } = useContext(CalculationContext)
 
@@ -60,5 +45,20 @@ function Distance() {
         
     )
 }
+
+const distanceMetric = [
+    {
+        value: 'meters',
+        label: "Meters"
+    },
+    {
+        value: 'kilometers',
+        label: "km"
+    },
+    {
+        value: 'miles',
+        label: "Miles"
+    },
+]
 
 export default Distance

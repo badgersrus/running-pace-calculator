@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -7,43 +7,48 @@ import Distance from './Distance';
 import Pace from './Pace';
 import Time from './Time'
 import { CalculationContext } from '../App';
-import { ADD_PACE_SECONDS, ADD_PACE_MINUTES, ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, ADD_DISTANCE_UNITS, ADD_DISTANCE } from '../calculationReducer';
+import { ADD_PACE_SECONDS, ADD_PACE_MINUTES, ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, ADD_DISTANCE } from '../calculationReducer';
 
 
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: theme.spacing(1)
-    },
-    form: {
-        width: '100%',
-        marginTop: theme.spacing(3),
-    },
-    submit: {
-        backgroundColor: "#ffa64d",
-        color: "white",
-        margin: theme.spacing(3, 0, 2),
-    }
-}));
-
-function CalculatorForm() {
+function Calculator() {
     const { state, dispatch } = useContext(CalculationContext)
     const classes = useStyles();
 
-    function getDistanceForUnits() {
+    useEffect(() => {
+        if (state.hours === "" && state.minutes === "" && state.seconds === "") removeTimeSet() 
+        if (state.paceMinutes === "" && state.paceSeconds === "") removePaceSet() 
+        if (state.distance === "") removeDistanceSet()
+    })
+
+    const removeTimeSet = () => {
+        dispatch({
+            type: ADD_TIME_HOURS,
+            payload: { isTimeSet: false }
+        });
+    }
+    const removePaceSet = () => {
+        dispatch({
+            payload: { isPaceSet: false }
+        });
+    }
+    const removeDistanceSet = () => {
+        dispatch({
+            payload: { isDistanceSet: false }
+        });
+    }
+
+    function getDistanceInRelativeUnits() {
+        let intDistance = parseFloat(state.distance)
         switch (state.paceUnits) {
             case "kilometers": {
-                return state.distanceUnits === 'kilometers' ? state.distance :
-                    state.distanceUnits === 'meters' ? state.distance / 1000 :
-                        Math.floor(state.distance * 1.60934)
+                return state.distanceUnits === 'kilometers' ? intDistance :
+                    state.distanceUnits === 'meters' ? intDistance / 1000 :
+                        intDistance * 1.60934
             }
             case "miles": {
-                return state.distanceUnits === 'kilometers' ? Math.floor(state.distance / 1.60945) :
-                    state.distanceUnits === 'meters' ? Math.floor((state.distance / 1000) / 1.60945) :
-                        state.distance
+                return state.distanceUnits === 'kilometers' ? intDistance / 1.60945 :
+                    state.distanceUnits === 'meters' ? (intDistance / 1000) / 1.60945 :
+                    intDistance
 
             }
             default:
@@ -55,33 +60,18 @@ function CalculatorForm() {
         return parseInt(state.paceMinutes * 60 ) + parseInt(state.paceSeconds)
     }
 
-    // eslint-disable-next-line no-extend-native
-    Number.prototype.pad = function(size) {
-        var s = String(this);
-        while (s.length < (size || 2)) {s = "0" + s;}
-        return s;
-      }
-
     function calculatePace() {
         console.log("Calculating pace")
 
-        let intHours = parseInt(state.hours)
-        let intMins = parseInt(state.minutes)
-        let intSecs = parseInt(state.seconds)
+        let intHours = parseInt(state.hours) || 0
+        let intMins = parseInt(state.minutes) || 0
+        let intSecs = parseInt(state.seconds) || 0
 
         let totalSeconds = (intHours * 3600) + (intMins * 60) + intSecs
-        let distance = getDistanceForUnits()
-        let secondsPerKm = Math.floor(totalSeconds / distance)
-        let paceMins = Math.floor(secondsPerKm % 3600 / 60);
-        var paceSecs = Math.floor((secondsPerKm % 3600 )% 60);
-
-        paceSecs <= 9 ? String(paceSecs).padStart(0) : String(paceSecs)
-        if (paceSecs <= 9) {
-            var formattedNumber = ("0" + paceSecs).slice(-2);
-            console.log(formattedNumber);
-        }
-        console.log("paceSecs")
-        console.log(paceSecs)
+        let distance = getDistanceInRelativeUnits()
+        let timePerDistance = Math.floor(totalSeconds / distance)
+        let paceMins = Math.floor(timePerDistance % 3600 / 60)
+        var paceSecs = Math.floor(timePerDistance % 3600 % 60)
 
         dispatch({
             type: ADD_PACE_MINUTES,
@@ -96,7 +86,7 @@ function CalculatorForm() {
 
     function calculateTime() {
         console.log("Calculating time")
-        let distance = getDistanceForUnits()
+        let distance = getDistanceInRelativeUnits()
         let paceInSeconds = getPaceInSeconds()
 
         let totalSeconds = distance * paceInSeconds
@@ -133,10 +123,10 @@ function CalculatorForm() {
         // let paceMins = Math.floor(secondsPerKm % 3600 / 60);
         // var paceSecs = Math.floor(secondsPerKm % 3600 % 60);
 
-        // dispatch({
-        //     type: ADD_DISTANCE,
-        //     payload: { distance: paceMins }
-        // });
+        dispatch({
+            type: ADD_DISTANCE,
+            payload: { distance: "" }
+        });
     }
 
     function calculate() {
@@ -175,4 +165,23 @@ function CalculatorForm() {
     );
 }
 
-export default CalculatorForm
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: theme.spacing(1)
+    },
+    form: {
+        width: '100%',
+        marginTop: theme.spacing(3),
+    },
+    submit: {
+        backgroundColor: "#ffa64d",
+        color: "white",
+        margin: theme.spacing(3, 0, 2),
+    }
+}));
+
+export default Calculator
