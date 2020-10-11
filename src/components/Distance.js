@@ -1,10 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Grid, Input, TextField, MenuItem } from '@material-ui/core/';
 import { CalculationContext } from '../App';
-import { ADD_DISTANCE, ADD_DISTANCE_UNITS } from '../calculationReducer'
+import { ADD_DISTANCE, ADD_DISTANCE_UNITS, REMOVE_DISTANCE } from '../calculationReducer'
 
 function Distance() {
     const { state, dispatch } = useContext(CalculationContext)
+
+    useEffect(() => {
+        if (state.distance === '') {
+            console.log("REMOVING DISTANCE")
+            dispatch({
+                type: REMOVE_DISTANCE,
+                payload: {
+                    isDistanceSet: false
+                }
+            })
+            console.log(state)
+        }
+    }, [state.distance, state.isDistanceSet])
 
     const handleAddDistance = (event) => {
         dispatch({ 

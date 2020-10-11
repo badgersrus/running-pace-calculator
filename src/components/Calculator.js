@@ -112,7 +112,6 @@ function Calculator() {
 
     function calculateDistance() {
         console.log("Calculating distance")
-
         // let intHours = parseInt(state.hours)
         // let intMins = parseInt(state.minutes)
         // let intSecs = parseInt(state.seconds)
@@ -136,6 +135,10 @@ function Calculator() {
                     console.log("ERROR")
     }
 
+    function isButtonDisabled() {
+        return state.isPaceSet && state.isTimeSet && state.isDistanceSet
+    }
+
     return (
         <div className={classes.paper}>
             <Typography component="h1" variant="h5" >
@@ -153,6 +156,7 @@ function Calculator() {
                         <Pace />
                     </Grid>
                     <Button
+                        disabled={isButtonDisabled()}
                         fullWidth
                         variant="contained"
                         className={classes.submit}

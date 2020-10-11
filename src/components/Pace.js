@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Grid, Input, TextField, MenuItem } from '@material-ui/core/';
 import { CalculationContext } from '../App';
-import { ADD_PACE_MINUTES, ADD_PACE_SECONDS, ADD_PACE_UNITS } from '../calculationReducer'
+import { ADD_PACE_MINUTES, ADD_PACE_SECONDS, ADD_PACE_UNITS, REMOVE_PACE } from '../calculationReducer'
 import { displayTime } from '../services/conversion'
 
 function Pace() {
@@ -27,7 +27,16 @@ function Pace() {
                 }
             })
         }
-    }, [state.paceMinutes, state.paceSeconds])
+
+        if (state.paceMinutes === '' && state.paceSeconds === '') {
+            dispatch({
+                type: REMOVE_PACE,
+                payload: {
+                    isPaceSet: false
+                }
+            })
+        }  
+    }, [state.paceMinutes, state.paceSeconds, state.isPaceSet])
 
     const handleAddPaceMinutes = (event) => {
         dispatch({
@@ -58,21 +67,21 @@ function Pace() {
 
     return (
         <Grid container spacing='1' justify="center">
-            <Grid item xs="3" align="center" style={{ display: 'flex' }}>
+            <Grid item xs='3' align="center" style={{ display: 'flex' }}>
                 <Input
                     placeholder="04"
                     value={displayTime(state.paceMinutes)}
                     inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddPaceMinutes} />
             </Grid>
-            <Grid item xs="3" align="center" style={{ display: 'flex' }}>
+            <Grid item xs='3' align="center" style={{ display: 'flex' }}>
                 <Input
                     placeholder="30"
                     value={displayTime(state.paceSeconds)}
                     inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddPaceSeconds} />
             </Grid>
-            <Grid alignItems="center" item xs="3" style={{ display: 'flex' }}>
+            <Grid alignItems="center" item xs='3' style={{ display: 'flex' }}>
                 <TextField
                     select
                     label="Units"
