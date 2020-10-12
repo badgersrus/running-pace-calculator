@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from 'react';
 import { Grid, Input } from '@material-ui/core/';
+import React, { useContext, useEffect } from 'react';
 import { CalculationContext } from '../App';
 import { ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, REMOVE_TIME } from '../calculationReducer';
-import { displayTime } from '../services/conversion'
+import { displayTime } from '../services/conversion';
 
 function Time() {
     const { state, dispatch } = useContext(CalculationContext)
@@ -38,14 +38,10 @@ function Time() {
             })
         }
 
-        if (state.hours === '' || 0 && state.minutes === '' || 0 && state.seconds === '' || 0) {
-            console.log("REMOVE_TIME")
+        if (state.hours === '' && state.minutes === '' && state.seconds === '') {
             dispatch({
                 type: REMOVE_TIME,
                 payload: {
-                    hours: 0,
-                    minutes: 0,
-                    seconds: 0,
                     isTimeSet: false
                 }
             })
@@ -56,7 +52,7 @@ function Time() {
         dispatch({
             type: ADD_TIME_HOURS,
             payload: {
-                hours: event.target.value,
+                hours: event.target.value, 
                 isTimeSet: true
             }
         })
@@ -86,24 +82,24 @@ function Time() {
         <Grid container spacing='1' justify="center">
             <Grid item xs="3" align="center">
                 <Input
-                    value={displayTime(state.hours)}
                     placeholder="Hours"
-                    inputProps={{ 'aria-label': 'description', 'max': '2' }}
+                    value={displayTime(state.hours)}
+                    inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddHours} />
 
             </Grid>
             <Grid item xs="3" align="center">
                 <Input
-                    value={displayTime(state.minutes)}
                     placeholder="Minutes"
-                    inputProps={{ 'aria-label': 'description', 'max': '2' }}
+                    value={displayTime(state.minutes)}
+                    inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddMinutes}
                 />
             </Grid>
             <Grid item xs="3" align="center">
                 <Input
-                    value={displayTime(state.seconds)}
                     placeholder="Seconds"
+                    value={displayTime(state.seconds)}
                     inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddSeconds} />
             </Grid>

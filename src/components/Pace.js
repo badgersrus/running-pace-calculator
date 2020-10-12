@@ -3,6 +3,7 @@ import { Grid, Input, TextField, MenuItem } from '@material-ui/core/';
 import { CalculationContext } from '../App';
 import { ADD_PACE_MINUTES, ADD_PACE_SECONDS, ADD_PACE_UNITS, REMOVE_PACE } from '../calculationReducer'
 import { displayTime } from '../services/conversion'
+import { paceUnits } from '../services/objects'
 
 function Pace() {
     const { state, dispatch } = useContext(CalculationContext)
@@ -97,16 +98,5 @@ function Pace() {
         </Grid>
     )
 }
-
-const paceUnits = [
-    {
-        value: "kilometers",
-        label: "km"
-    },
-    {
-        value: "miles",
-        label: "mile"
-    },
-]
 
 export default Pace

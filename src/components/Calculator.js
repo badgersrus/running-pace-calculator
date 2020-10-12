@@ -21,12 +21,14 @@ function Calculator() {
     })
 
     const removeTimeSet = () => {
+        console.log("REMOVING TIME SET")
         dispatch({
-            type: ADD_TIME_HOURS,
+            // type: ADD_TIME_HOURS,
             payload: { isTimeSet: false }
         });
     }
     const removePaceSet = () => {
+        console.log("REMOVING PACE SET")
         dispatch({
             payload: { isPaceSet: false }
         });

@@ -2,20 +2,20 @@ import React, { useContext, useEffect } from 'react';
 import { Grid, Input, TextField, MenuItem } from '@material-ui/core/';
 import { CalculationContext } from '../App';
 import { ADD_DISTANCE, ADD_DISTANCE_UNITS, REMOVE_DISTANCE } from '../calculationReducer'
+import { distanceMetric } from '../services/objects'
 
 function Distance() {
     const { state, dispatch } = useContext(CalculationContext)
 
     useEffect(() => {
+        console.log(state)
         if (state.distance === '') {
-            console.log("REMOVING DISTANCE")
             dispatch({
                 type: REMOVE_DISTANCE,
                 payload: {
                     isDistanceSet: false
                 }
             })
-            console.log(state)
         }
     }, [state.distance, state.isDistanceSet])
 
@@ -58,20 +58,5 @@ function Distance() {
         
     )
 }
-
-const distanceMetric = [
-    {
-        value: 'meters',
-        label: "Meters"
-    },
-    {
-        value: 'kilometers',
-        label: "km"
-    },
-    {
-        value: 'miles',
-        label: "Miles"
-    },
-]
 
 export default Distance

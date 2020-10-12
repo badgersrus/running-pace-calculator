@@ -36,9 +36,9 @@ function calculationReducer(state, action) {
         case REMOVE_TIME: {
             return {
                 ...state,
-                hours: action.payload.hours,
-                minutes: action.payload.minutes,
-                seconds: action.payload.seconds,
+                // hours: action.payload.hours,
+                // minutes: action.payload.minutes,
+                // seconds: action.payload.seconds,
                 isTimeSet: action.payload.isTimeSet
             }
         }
