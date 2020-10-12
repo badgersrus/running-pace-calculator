@@ -8,7 +8,6 @@ function Distance() {
     const { state, dispatch } = useContext(CalculationContext)
 
     useEffect(() => {
-        console.log(state)
         if (state.distance === '') {
             dispatch({
                 type: REMOVE_DISTANCE,
@@ -37,6 +36,7 @@ function Distance() {
             <Grid item xs="4" align="center" style={{ display: 'flex' }}>
                 <Input 
                     placeholder="Distance" 
+                    value={state.distance}
                     inputProps={{ 'aria-label': 'description' }} 
                     onChange={handleAddDistance}/>
             </Grid>

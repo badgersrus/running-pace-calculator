@@ -29,6 +29,8 @@ function Pace() {
             })
         }
 
+        console.log("PACE")
+        console.log(state)
         if (state.paceMinutes === '' && state.paceSeconds === '') {
             dispatch({
                 type: REMOVE_PACE,

@@ -15,20 +15,17 @@ function Calculator() {
     const classes = useStyles();
 
     useEffect(() => {
-        if (state.hours === "" && state.minutes === "" && state.seconds === "") removeTimeSet() 
-        if (state.paceMinutes === "" && state.paceSeconds === "") removePaceSet() 
-        if (state.distance === "") removeDistanceSet()
+        if (state.hours === '' && state.minutes === '' && state.seconds === '') removeTimeSet()
+        if (state.paceMinutes === '' && state.paceSeconds === '') removePaceSet()
+        if (state.distance === '') removeDistanceSet()
     })
 
     const removeTimeSet = () => {
-        console.log("REMOVING TIME SET")
         dispatch({
-            // type: ADD_TIME_HOURS,
             payload: { isTimeSet: false }
         });
     }
     const removePaceSet = () => {
-        console.log("REMOVING PACE SET")
         dispatch({
             payload: { isPaceSet: false }
         });
@@ -36,6 +33,82 @@ function Calculator() {
     const removeDistanceSet = () => {
         dispatch({
             payload: { isDistanceSet: false }
+        });
+    }
+
+    function calculatePace() {
+        let totalSeconds = (parseInt(state.hours) * 3600) + (parseInt(state.minutes) * 60) + parseInt(state.seconds)
+        let distance = getDistanceInRelativeUnits()
+        let timePerDistance = Math.floor(totalSeconds / distance)
+        let paceMins = Math.floor(timePerDistance % 3600 / 60)
+        var paceSecs = Math.floor(timePerDistance % 3600 % 60)
+
+        dispatch({
+            type: ADD_PACE_MINUTES,
+            payload: {
+                paceMinutes: paceMins,
+                isPaceSet: true
+            }
+        });
+
+        dispatch({
+            type: ADD_PACE_SECONDS,
+            payload: {
+                paceSeconds: paceSecs,
+                isPaceSet: true
+            }
+        });
+    }
+
+    function calculateTime() {
+        let distance = getDistanceInRelativeUnits()
+        let paceInSeconds = getPaceInSeconds()
+
+        let totalSeconds = distance * paceInSeconds
+        var hours = Math.floor(totalSeconds / 3600);
+        var mins = Math.floor(totalSeconds % 3600 / 60);
+        var secs = Math.floor(totalSeconds % 3600 % 60);
+
+        dispatch({
+            type: ADD_TIME_HOURS,
+            payload: {
+                hours: hours,
+                isTimeSet: true
+            }
+        });
+
+        dispatch({
+            type: ADD_TIME_MINUTES,
+            payload: {
+                minutes: mins,
+                isTimeSet: true
+            }
+        });
+
+        dispatch({
+            type: ADD_TIME_SECONDS,
+            payload: {
+                seconds: secs,
+                isTimeSet: true
+            }
+        });
+    }
+
+    function calculateDistance() {
+        let totalSeconds = (parseInt(state.hours) * 3600) + (parseInt(state.minutes) * 60) + parseInt(state.seconds)
+
+        let paceSeconds = getPaceInSeconds()
+        let distance = calculateDistanceForUnits(totalSeconds, paceSeconds)
+        
+        console.log("distance")
+        console.log(distance)
+        
+        dispatch({
+            type: ADD_DISTANCE,
+            payload: { 
+                distance: distance,
+                isDistanceSet: true
+            }
         });
     }
 
@@ -50,7 +123,7 @@ function Calculator() {
             case "miles": {
                 return state.distanceUnits === 'kilometers' ? intDistance / 1.60945 :
                     state.distanceUnits === 'meters' ? (intDistance / 1000) / 1.60945 :
-                    intDistance
+                        intDistance
 
             }
             default:
@@ -58,83 +131,32 @@ function Calculator() {
         }
     }
 
+    function calculateDistanceForUnits(totalSeconds, paceSeconds) {
+        switch (state.paceUnits) {
+            case "kilometers": {
+                return state.distanceUnits === 'kilometers' ? (totalSeconds / paceSeconds).toFixed(2) :
+                    state.distanceUnits === 'meters' ? Math.floor(totalSeconds / paceSeconds * 1000) :
+                        (totalSeconds / (paceSeconds * 1.60945)).toFixed(2)
+            }
+            case "miles": {
+                return state.distanceUnits === 'kilometers' ? (totalSeconds / (paceSeconds / 1.60945)).toFixed(2) :
+                    state.distanceUnits === 'meters' ? Math.floor((totalSeconds / (paceSeconds / 1.60945)) * 1000) :
+                        (totalSeconds / paceSeconds).toFixed(2)
+            }
+            default:
+                return null
+        }
+    }
+
     function getPaceInSeconds() {
-        return parseInt(state.paceMinutes * 60 ) + parseInt(state.paceSeconds)
-    }
-
-    function calculatePace() {
-        console.log("Calculating pace")
-
-        let intHours = parseInt(state.hours) || 0
-        let intMins = parseInt(state.minutes) || 0
-        let intSecs = parseInt(state.seconds) || 0
-
-        let totalSeconds = (intHours * 3600) + (intMins * 60) + intSecs
-        let distance = getDistanceInRelativeUnits()
-        let timePerDistance = Math.floor(totalSeconds / distance)
-        let paceMins = Math.floor(timePerDistance % 3600 / 60)
-        var paceSecs = Math.floor(timePerDistance % 3600 % 60)
-
-        dispatch({
-            type: ADD_PACE_MINUTES,
-            payload: { paceMinutes: paceMins }
-        });
-
-        dispatch({
-            type: ADD_PACE_SECONDS,
-            payload: { paceSeconds: paceSecs }
-        });
-    }
-
-    function calculateTime() {
-        console.log("Calculating time")
-        let distance = getDistanceInRelativeUnits()
-        let paceInSeconds = getPaceInSeconds()
-
-        let totalSeconds = distance * paceInSeconds
-        var hours = Math.floor(totalSeconds / 3600);
-        var mins = Math.floor(totalSeconds % 3600 / 60);
-        var secs = Math.floor(totalSeconds % 3600 % 60);
-
-        dispatch({
-            type: ADD_TIME_HOURS,
-            payload: { hours: hours }
-        });
-
-        dispatch({
-            type: ADD_TIME_MINUTES,
-            payload: { minutes: mins }
-        });
-
-        dispatch({
-            type: ADD_TIME_SECONDS,
-            payload: { seconds: secs }
-        });
-    }
-
-    function calculateDistance() {
-        console.log("Calculating distance")
-        // let intHours = parseInt(state.hours)
-        // let intMins = parseInt(state.minutes)
-        // let intSecs = parseInt(state.seconds)
-
-        // let totalSeconds = (intHours * 3600) + (intMins * 60) + intSecs
-        // let distance = getDistanceForUnits()
-        // let secondsPerKm = Math.floor(totalSeconds / distance)
-        // let paceMins = Math.floor(secondsPerKm % 3600 / 60);
-        // var paceSecs = Math.floor(secondsPerKm % 3600 % 60);
-
-        dispatch({
-            type: ADD_DISTANCE,
-            payload: { distance: "" }
-        });
+        return parseInt(state.paceMinutes * 60) + parseInt(state.paceSeconds)
     }
 
     function calculate() {
         state.isTimeSet && state.isDistanceSet ? calculatePace() :
             state.isDistanceSet && state.isPaceSet ? calculateTime() :
                 state.isPaceSet && state.isTimeSet ? calculateDistance() :
-                    console.log("ERROR")
+                    console.log("Time, distance or pace must be set")
     }
 
     function isButtonDisabled() {

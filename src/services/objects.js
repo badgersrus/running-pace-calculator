@@ -16,7 +16,7 @@ export const distanceMetric = [
     },
     {
         value: 'kilometers',
-        label: "km"
+        label: "Km"
     },
     {
         value: 'miles',
@@ -24,7 +24,7 @@ export const distanceMetric = [
     },
 ]
 
-const units = [
+export const units = [
     {
         km: '2:50',
         mile: '4:33'
