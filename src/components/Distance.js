@@ -44,7 +44,6 @@ function Distance() {
                 <TextField
                     id="standard-select-currency"
                     select
-                    label="Units"
                     value={state.distanceUnits}
                     onChange={handleAddDistanceUnits}>
                     {distanceMetric.map((option) => (

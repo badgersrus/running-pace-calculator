@@ -170,13 +170,13 @@ function Calculator() {
             </Typography>
             <form className={classes.form} noValidate>
                 <Grid container spacing='5'>
-                    <Grid item xs="12">
+                    <Grid item xs={12}>
                         <Time />
                     </Grid>
-                    <Grid item xs="12">
+                    <Grid item xs={12}>
                         <Distance />
                     </Grid>
-                    <Grid item xs="12">
+                    <Grid item xs={12}>
                         <Pace />
                     </Grid>
                     <Button

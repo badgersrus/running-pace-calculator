@@ -1,0 +1,36 @@
+.scrollhost::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollhost::-moz-scrollbar {
+    display: none;
+}
+
+.scrollhost {
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow: auto;
+    overflow-x: "auto";
+    display: block;
+    -ms-overflow-style: none;
+    scrollbar-color: transparent transparent;
+    width: 100%;
+    border-spacing: 15px 0px
+}
+
+td {
+    padding-left: 1px;
+    padding-right: 1px;
+    height: 20px;
+    border: 1px hidden;
+  }
+
+  table {
+  table-layout: fixed;
+  border-spacing: 15px 0px;
+  margin: 0px -15px;
+}
+  
+
+
+/* table */

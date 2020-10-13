@@ -80,7 +80,7 @@ function Time() {
 
     return (
         <Grid container spacing='1' justify="center">
-            <Grid item xs="3" align="center">
+            <Grid item xs={3} align="center">
                 <Input
                     placeholder="Hours"
                     value={displayTime(state.hours)}
@@ -88,7 +88,7 @@ function Time() {
                     onChange={handleAddHours} />
 
             </Grid>
-            <Grid item xs="3" align="center">
+            <Grid item xs={3} align="center">
                 <Input
                     placeholder="Minutes"
                     value={displayTime(state.minutes)}
@@ -96,7 +96,7 @@ function Time() {
                     onChange={handleAddMinutes}
                 />
             </Grid>
-            <Grid item xs="3" align="center">
+            <Grid item xs={3} align="center">
                 <Input
                     placeholder="Seconds"
                     value={displayTime(state.seconds)}
