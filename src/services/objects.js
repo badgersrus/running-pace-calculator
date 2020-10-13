@@ -25,23 +25,37 @@ export const distanceMetric = [
 ]
 
 export const units = [
+    // Padding
     {
-        // id: 0,
+        km: '    ',
+        mile: '    '
+    },
+    {
+        km: '    ',
+        mile: '    ' 
+    },
+    {
+        km: '    ',
+        mile: '    '
+    },
+    {
+        km: '    ',
+        mile: '    '
+    },
+    // End padding
+    {
         km: '2:30',
         mile: '4:00'
     },
     {
-        // id: 1,
         km: '2:31',
         mile: '4:03'
     },
     {
-        // id: 2,
         km: '2:32',
         mile: '4:04'
     },
     {
-        // id: 3,
         km: '2:33',
         mile: '4:06'
     },
@@ -269,4 +283,22 @@ export const units = [
         km: '3:29',
         mile: '5:37'
     },
+    // Padding
+    {
+        km: '    ',
+        mile: '    '
+    },
+    {
+        km: '    ',
+        mile: '    ' 
+    },
+    {
+        km: '    ',
+        mile: '    '
+    },
+    {
+        km: '    ',
+        mile: '    '
+    },
+    // End padding
 ]

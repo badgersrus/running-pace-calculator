@@ -1,22 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, TablePagination } from '@material-ui/core/';
+import { Grid, TablePagination, Button } from '@material-ui/core/';
 import { units } from '../services/objects'
 import '../styling/UnitSpinner.css'
 
 function UnitSpinner() {
-    const [displayUnits, setDisplayUnits] = useState([
-        units.slice(0, 9)
-    ])
-    const [pageNumber, setPageNumber] = useState(0)
+    let midWay = units.length / 2 
+    const [page, setPage] = useState({
+        currentPage: midWay,
+        topIndex: midWay + 9,
+        bottomIndex: midWay
+    })
 
+    const [displayUnits, setDisplayUnits] = useState(units.slice(page.bottomIndex, page.topIndex))
+    
     useEffect(() => {
-        console.log("units.length")
-        console.log(units.length)
-    }, [])
+        let tempArray = units.slice(page.bottomIndex, page.topIndex)
+        setDisplayUnits(tempArray)
+    }, [page])
 
-    const handleChangePage = (event, newPage) => {
-        setPageNumber(newPage)
-        let tempArray = units.slice(0, 1)
+    const handleBack = (event) => {
+        if (page.currentPage !== 0) {
+            setPage({
+                ...page,
+                currentPage: page.currentPage - 1,
+                topIndex: page.topIndex - 1,
+                bottomIndex: page.bottomIndex - 1
+            })
+        }
+    }
+    const handleNext = (event) => {
+        if(page.currentPage !== units.length - 9 ) {
+            setPage({
+                ...page,
+                currentPage: page.currentPage + 1,
+                topIndex: page.topIndex + 1,
+                bottomIndex: page.bottomIndex + 1
+            })
+        }
     }
 
     return (
@@ -25,37 +45,38 @@ function UnitSpinner() {
                 <div className="scrollhost">
                         <table>
                         <tr id="km-row">
-                            <td>{displayUnits[0][0].km}</td>
-                            <td>{displayUnits[0][1].km}</td>
-                            <td>{displayUnits[0][2].km}</td>
-                            <td>{displayUnits[0][3].km}</td>
-                            <td>{displayUnits[0][4].km}</td>
-                            <td>{displayUnits[0][5].km}</td>
-                            <td>{displayUnits[0][6].km}</td>
-                            <td>{displayUnits[0][7].km}</td>
-                            <td>{displayUnits[0][8].km}</td>
+                            <td>{displayUnits[0].km}</td>
+                            <td>{displayUnits[1].km}</td>
+                            <td>{displayUnits[2].km}</td>
+                            <td>{displayUnits[3].km}</td>
+                            <td>{displayUnits[4].km}</td>
+                            <td>{displayUnits[5].km}</td>
+                            <td>{displayUnits[6].km}</td>
+                            <td>{displayUnits[7].km}</td>
+                            <td>{displayUnits[8].km}</td>
                         </tr>
                         <tr id="mile-row">
-                            <td>{displayUnits[0][0].mile}</td>
-                            <td>{displayUnits[0][1].mile}</td>
-                            <td>{displayUnits[0][2].mile}</td>
-                            <td>{displayUnits[0][3].mile}</td>
-                            <td>{displayUnits[0][4].mile}</td>
-                            <td>{displayUnits[0][5].mile}</td>
-                            <td>{displayUnits[0][6].mile}</td>
-                            <td>{displayUnits[0][7].mile}</td>
-                            <td>{displayUnits[0][8].mile}</td>
+                            <td>{displayUnits[0].mile}</td>
+                            <td>{displayUnits[1].mile}</td>
+                            <td>{displayUnits[2].mile}</td>
+                            <td>{displayUnits[3].mile}</td>
+                            <td>{displayUnits[4].mile}</td>
+                            <td>{displayUnits[5].mile}</td>
+                            <td>{displayUnits[6].mile}</td>
+                            <td>{displayUnits[7].mile}</td>
+                            <td>{displayUnits[8].mile}</td>
                         </tr>
                     </table> 
                 </div>
 
-                <TablePagination
-                    style={{ padding: "0 10px", marginTop: -15, color: "white" }}
-                    rowsPerPageOptions={[]}
-                    component="div"
-                    rowsPerPage={units.length}
-                    page={pageNumber}
-                    onChangePage={handleChangePage} />
+            </Grid>
+            <Grid item xs={2} align="center">
+                <Button
+                    onClick={handleBack}>back</Button>
+            </Grid>
+            <Grid item xs={2} align="center">
+                <Button
+                    onClick={handleNext}>next</Button>
             </Grid>
         </Grid>
 
