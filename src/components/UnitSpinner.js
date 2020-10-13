@@ -1,57 +1,65 @@
-import { Grid } from '@material-ui/core/';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Grid, TablePagination } from '@material-ui/core/';
 import { units } from '../services/objects'
-import { makeStyles } from '@material-ui/core/styles';
 import '../styling/UnitSpinner.css'
 
 function UnitSpinner() {
-    const classes = useStyles();
+    const [displayUnits, setDisplayUnits] = useState([
+        units.slice(0, 9)
+    ])
+    const [pageNumber, setPageNumber] = useState(0)
+
+    useEffect(() => {
+        console.log("units.length")
+        console.log(units.length)
+    }, [])
+
+    const handleChangePage = (event, newPage) => {
+        setPageNumber(newPage)
+        let tempArray = units.slice(0, 1)
+    }
 
     return (
         <Grid container spacing='1' justify="center">
-            <Grid item xs="12" align="center">
+            <Grid item xs={12} align="center">
                 <div className="scrollhost">
-                    <table>
-                        <tr>
-                        {units.map((conversion, i) => {
-                            return (<><td index={i}>{conversion.km}</td></>)
-                        })}
+                        <table>
+                        <tr id="km-row">
+                            <td>{displayUnits[0][0].km}</td>
+                            <td>{displayUnits[0][1].km}</td>
+                            <td>{displayUnits[0][2].km}</td>
+                            <td>{displayUnits[0][3].km}</td>
+                            <td>{displayUnits[0][4].km}</td>
+                            <td>{displayUnits[0][5].km}</td>
+                            <td>{displayUnits[0][6].km}</td>
+                            <td>{displayUnits[0][7].km}</td>
+                            <td>{displayUnits[0][8].km}</td>
                         </tr>
-                        <tr>
-                        {units.map((conversion, i) => {
-                            return (<><td index={i}>{conversion.mile}</td></>)
-                        })}
+                        <tr id="mile-row">
+                            <td>{displayUnits[0][0].mile}</td>
+                            <td>{displayUnits[0][1].mile}</td>
+                            <td>{displayUnits[0][2].mile}</td>
+                            <td>{displayUnits[0][3].mile}</td>
+                            <td>{displayUnits[0][4].mile}</td>
+                            <td>{displayUnits[0][5].mile}</td>
+                            <td>{displayUnits[0][6].mile}</td>
+                            <td>{displayUnits[0][7].mile}</td>
+                            <td>{displayUnits[0][8].mile}</td>
                         </tr>
-                    </table>
+                    </table> 
                 </div>
+
+                <TablePagination
+                    style={{ padding: "0 10px", marginTop: -15, color: "white" }}
+                    rowsPerPageOptions={[]}
+                    component="div"
+                    rowsPerPage={units.length}
+                    page={pageNumber}
+                    onChangePage={handleChangePage} />
             </Grid>
         </Grid>
 
     )
 }
-
-const useStyles = makeStyles((theme) => ({
-    wrapper: {
-        overflowX: "auto",
-        width: "100%",
-        display: "block"
-    }
-    // paper: {
-    //     marginTop: theme.spacing(8),
-    //     display: 'flex',
-    //     flexDirection: 'column',
-    //     alignItems: 'center',
-    //     padding: theme.spacing(1)
-    // },
-    // form: {
-    //     width: '100%',
-    //     marginTop: theme.spacing(3),
-    // },
-    // submit: {
-    //     backgroundColor: "#ffa64d",
-    //     color: "white",
-    //     margin: theme.spacing(3, 0, 2),
-    // }
-}));
 
 export default UnitSpinner

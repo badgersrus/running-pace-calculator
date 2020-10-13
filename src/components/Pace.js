@@ -29,8 +29,6 @@ function Pace() {
             })
         }
 
-        console.log("PACE")
-        console.log(state)
         if (state.paceMinutes === '' && state.paceSeconds === '') {
             dispatch({
                 type: REMOVE_PACE,
@@ -70,23 +68,24 @@ function Pace() {
 
     return (
         <Grid container spacing='1' justify="center">
-            <Grid xs={3} align="center" style={{ display: 'flex' }}>
+            <Grid item xs='3' align="center" style={{ display: 'flex' }}>
                 <Input
                     placeholder="04"
                     value={displayTime(state.paceMinutes)}
                     inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddPaceMinutes} />
             </Grid>
-            <Grid item xs={3} align="center" style={{ display: 'flex' }}>
+            <Grid item xs='3' align="center" style={{ display: 'flex' }}>
                 <Input
                     placeholder="30"
                     value={displayTime(state.paceSeconds)}
                     inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddPaceSeconds} />
             </Grid>
-            <Grid alignItems="center" item xs={3} style={{ display: 'flex' }}>
+            <Grid alignItems="center" item xs='3' style={{ display: 'flex' }}>
                 <TextField
                     select
+                    label="Units"
                     value={state.paceUnits}
                     onChange={handleAddPaceUnits}>
                     {paceUnits.map((option) => (

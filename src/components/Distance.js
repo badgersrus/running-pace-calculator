@@ -33,14 +33,14 @@ function Distance() {
 
     return (
         <Grid container spacing='1' justify="center">
-            <Grid item xs="4" align="center" style={{ display: 'flex' }}>
+            <Grid item xs={4} align="center" style={{ display: 'flex' }}>
                 <Input 
                     placeholder="Distance" 
                     value={state.distance}
                     inputProps={{ 'aria-label': 'description' }} 
                     onChange={handleAddDistance}/>
             </Grid>
-            <Grid item xs="3">
+            <Grid item xs={3}>
                 <TextField
                     id="standard-select-currency"
                     select
