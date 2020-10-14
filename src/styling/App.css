@@ -10,7 +10,10 @@ body{
 .wrap{
   background-image: url('../images/shoe.png');
   background-size: cover;
-  /* height: calc(100% + 50px); */
+  /* position: fixed; */
+  /* background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center; */
   height:100%;
 }
 

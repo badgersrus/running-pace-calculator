@@ -1,12 +1,12 @@
 import React from 'react';
 import { Typography, Box } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
-import '../styling/Header.css'
+// import '../styling/Header.css'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         color: "white",
-        fontSize: "100px"
+        fontSize: "250px"
     }
 }));
 

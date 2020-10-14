@@ -1,3 +1,4 @@
 TODO
 
-* Add styling 
+* Validation 
+* Clear buttons

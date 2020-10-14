@@ -1,13 +1,42 @@
-import { Grid, Input } from '@material-ui/core/';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Grid, Input, Button, Box } from '@material-ui/core/';
 import { CalculationContext } from '../App';
-import { ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, REMOVE_TIME } from '../calculationReducer';
+import { ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, REMOVE_TIME, CLEAR_TIME } from '../calculationReducer';
 import { displayTime } from '../services/conversion';
+import { inputStyles } from '../styling/inputs';
+import {
+    withStyles,
+} from '@material-ui/core/styles';
+
+const CssTextField = withStyles({
+    root: {
+        '& label.Mui-focused': {
+            color: 'white',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: 'white',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: 'white',
+            },
+            '&:hover fieldset': {
+                borderColor: 'white',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: 'white',
+            },
+        },
+    },
+})(Input);
 
 function Time() {
+    const classes = inputStyles()
     const { state, dispatch } = useContext(CalculationContext)
 
     useEffect(() => {
+        console.log("useEffect")
+        console.log(state)
         if (state.hours.length === 3) {
             dispatch({
                 type: ADD_TIME_HOURS,
@@ -49,10 +78,11 @@ function Time() {
     }, [state.hours, state.minutes, state.seconds, state.isTimeSet])
 
     const handleAddHours = (event) => {
+        
         dispatch({
             type: ADD_TIME_HOURS,
             payload: {
-                hours: event.target.value, 
+                hours: event.target.value,
                 isTimeSet: true
             }
         })
@@ -78,14 +108,29 @@ function Time() {
         });
     }
 
+    const clearTime = () => {
+        dispatch({
+            type: CLEAR_TIME,
+            payload: {
+                hours: 0,
+                minutes: 0,
+                seconds: 0,
+                isTimeSet: false
+            }
+        });
+    }
+
     return (
         <Grid container spacing='1' justify="center">
-            <Grid item xs={3} align="center">
+            <Grid item xs={2.5} align="center">
                 <Input
                     placeholder="Hours"
+                    style={{ width: 70}}
                     value={displayTime(state.hours)}
                     inputProps={{ 'aria-label': 'description' }}
-                    onChange={handleAddHours} />
+                    onChange={handleAddHours}
+                    color="secondary"
+                />
 
             </Grid>
             <Grid item xs={3} align="center">
@@ -94,6 +139,7 @@ function Time() {
                     value={displayTime(state.minutes)}
                     inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddMinutes}
+                    color="secondary"
                 />
             </Grid>
             <Grid item xs={3} align="center">
@@ -101,7 +147,17 @@ function Time() {
                     placeholder="Seconds"
                     value={displayTime(state.seconds)}
                     inputProps={{ 'aria-label': 'description' }}
-                    onChange={handleAddSeconds} />
+                    onChange={handleAddSeconds}
+                    color="secondary"
+                />
+            </Grid>
+            <Grid item xs={0.5}>
+                {state.isTimeSet ?
+                    <Button
+                        style={{ color: "white"}}
+                        onClick={clearTime}>x</Button>
+                    : null
+                }
             </Grid>
         </Grid>
     )

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
-import { Grid, Input, TextField, MenuItem } from '@material-ui/core/';
+import { Grid, Input, TextField, MenuItem, Box, Button, Hidden } from '@material-ui/core/';
 import { CalculationContext } from '../App';
-import { ADD_PACE_MINUTES, ADD_PACE_SECONDS, ADD_PACE_UNITS, REMOVE_PACE } from '../calculationReducer'
+import { ADD_PACE_MINUTES, ADD_PACE_SECONDS, ADD_PACE_UNITS, REMOVE_PACE, CLEAR_PACE } from '../calculationReducer'
 import { displayTime } from '../services/conversion'
 import { paceUnits } from '../services/objects'
 
@@ -36,7 +36,7 @@ function Pace() {
                     isPaceSet: false
                 }
             })
-        }  
+        }
     }, [state.paceMinutes, state.paceSeconds, state.isPaceSet])
 
     const handleAddPaceMinutes = (event) => {
@@ -66,36 +66,63 @@ function Pace() {
         });
     }
 
+    const clearPace = () => {
+        dispatch({
+            type: CLEAR_PACE,
+            payload: {
+                paceMinutes: 0,
+                paceSeconds: 0,
+                isPaceSet: false
+            }
+        });
+    }
+
     return (
-        <Grid container spacing='1' justify="center">
-            <Grid item xs='3' align="center" style={{ display: 'flex' }}>
-                <Input
-                    placeholder="04"
-                    value={displayTime(state.paceMinutes)}
-                    inputProps={{ 'aria-label': 'description' }}
-                    onChange={handleAddPaceMinutes} />
+        <>
+            <Grid container spacing='1' justify="center">
+                <Grid item xs='2' align="center" style={{ display: 'flex' }}>
+                    <Input
+                        placeholder="04"
+                        style={{ width: 50 }}
+                        value={displayTime(state.paceMinutes)}
+                        inputProps={{ 'aria-label': 'description' }}
+                        onChange={handleAddPaceMinutes}
+                        color="secondary" />
+                </Grid>
+                <Grid item xs='2' align="center" style={{ display: 'flex' }}>
+                    <Input
+                        placeholder="30"
+                        style={{ width: 50 }}
+                        value={displayTime(state.paceSeconds)}
+                        inputProps={{ 'aria-label': 'description' }}
+                        onChange={handleAddPaceSeconds}
+                        color="secondary" />
+                </Grid>
+                <Grid alignItems="center" item xs='3' style={{ display: 'flex' }}>
+                    <TextField
+                        select
+                        value={state.paceUnits}
+                        onChange={handleAddPaceUnits}>
+                        {paceUnits.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </Grid>
+                {/* <Hidden xsUp> */}
+                <Grid item xs={0.1}>
+                    {state.isPaceSet ?
+                        <Button
+                        style={{ color: "white" }}
+                        onClick={clearPace}>x</Button>
+                        : null
+                    }
+                </Grid>
+                    {/* </Hidden> */}
             </Grid>
-            <Grid item xs='3' align="center" style={{ display: 'flex' }}>
-                <Input
-                    placeholder="30"
-                    value={displayTime(state.paceSeconds)}
-                    inputProps={{ 'aria-label': 'description' }}
-                    onChange={handleAddPaceSeconds} />
-            </Grid>
-            <Grid alignItems="center" item xs='3' style={{ display: 'flex' }}>
-                <TextField
-                    select
-                    label="Units"
-                    value={state.paceUnits}
-                    onChange={handleAddPaceUnits}>
-                    {paceUnits.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))}
-                </TextField>
-            </Grid>
-        </Grid>
+            <Box mt={2}></Box>
+        </>
     )
 }
 

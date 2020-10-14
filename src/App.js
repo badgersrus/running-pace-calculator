@@ -5,7 +5,7 @@ import calculationReducer from './calculationReducer';
 import UnitSpinner from './components/UnitSpinner';
 import Calculator from './components/Calculator';
 import Header from './components/Header';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, withTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import './styling/App.css'
 
@@ -14,10 +14,20 @@ const THEME = createMuiTheme({
     fontFamily: '"Montserrat", sans-serif, "Staatliches", cursive',
     h1: {
       fontFamily: '"Staatliches", cursive',
-      fontSize: "200px"
+      fontSize: "250px"
     },
     useNextVariants: true
-  }
+  },
+  overrides: {
+    MuiInput: {
+        root: {
+            borderRadius: 0,
+            color: "white",
+            fontSize: 20,
+        },
+        
+    },
+} 
 });
 
 const initialState = {
@@ -42,18 +52,18 @@ function App() {
   return (<>
     <ThemeProvider theme={THEME}>
       <div className="wrap">
-      <Box p={5} />
+      <Box p={2} />
         <Header />
         <Container component="main" maxWidth="xs">
           <CalculationContext.Provider value={{ state, dispatch }}>
             <CssBaseline />
             <Box p={6} />
             <Calculator />
-            <Box mt={5}>
+            <Box p={6}>
               <UnitSpinner />
             </Box>
             <Box mt={5}>
-              <Copyright />
+              {/* <Copyright /> */}
             </Box>
             <Box p={10} />
           </CalculationContext.Provider>

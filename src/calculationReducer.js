@@ -9,6 +9,9 @@ export const ADD_PACE_UNITS = "ADD_PACE_UNITS"
 export const REMOVE_TIME = "REMOVE_TIME"
 export const REMOVE_DISTANCE = "REMOVE_DISTANCE"
 export const REMOVE_PACE = "REMOVE_PACE"
+export const CLEAR_TIME = "CLEAR_TIME"
+export const CLEAR_DISTANCE = "CLEAR_DISTANCE"
+export const CLEAR_PACE = "CLEAR_PACE"
 
 function calculationReducer(state, action) {
     switch (action.type) {
@@ -84,6 +87,30 @@ function calculationReducer(state, action) {
         case REMOVE_PACE: {
             return {
                 ...state,
+                isPaceSet: action.payload.isPaceSet
+            }
+        }
+        case CLEAR_TIME: {
+            return {
+                ...state,
+                hours: action.payload.hours,
+                minutes: action.payload.minutes,
+                seconds: action.payload.seconds,
+                isTimeSet: action.payload.isTimeSet
+            }
+        }
+        case CLEAR_DISTANCE: {
+            return {
+                ...state,
+                distance: action.payload.distance,
+                isDistanceSet: action.payload.isDistanceSet
+            }
+        }
+        case CLEAR_PACE: {
+            return {
+                ...state,
+                paceMinutes: action.payload.paceMinutes,
+                paceSeconds: action.payload.paceSeconds,
                 isPaceSet: action.payload.isPaceSet
             }
         }

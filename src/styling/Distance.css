@@ -1,0 +1,10 @@
+.TextArea {
+    color: white;
+}
+
+.MenuItem {
+    color: white;
+}
+.MenuItem.selected {
+    color: #ffb366
+}
