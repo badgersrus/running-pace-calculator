@@ -1,7 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Button, Slider } from '@material-ui/core/';
+import { Grid, Slider } from '@material-ui/core/';
 import { units } from '../services/objects'
 import '../styling/UnitSpinner.css'
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+
+const PrettoSlider = withStyles({
+    root: {
+      color: '#52af77',
+      height: 8,
+    },
+    thumb: {
+      height: 18,
+      width: 18,
+      backgroundColor: '#fff',
+      border: '2px solid currentColor',
+      marginTop: -8,
+      marginLeft: -12,
+      '&:focus, &:hover, &$active': {
+        boxShadow: 'inherit',
+      },
+    },
+    active: {},
+    valueLabel: {
+      left: 'calc(-50% + 4px)',
+    },
+    track: {
+      height: 0,
+      borderRadius: 1,
+    },
+    rail: {
+      height: 1,
+      borderRadius: 1,
+    },
+  })(Slider);
 
 function UnitSpinner() {
     let midWay = Math.floor((units.length / 2)) - 4
@@ -58,7 +89,7 @@ function UnitSpinner() {
                 </div>
             </Grid>
             <Grid item xs={12} align="center">
-                <Slider
+                <PrettoSlider
                     onChange={handleProgressChange}
                     value={page.currentPage}
                     type="range"
