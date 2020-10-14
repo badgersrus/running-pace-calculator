@@ -4,9 +4,9 @@ import { units } from '../services/objects'
 import '../styling/UnitSpinner.css'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
-const PrettoSlider = withStyles({
+const UnitSlider = withStyles({
     root: {
-      color: '#52af77',
+      color: '#d4867a',
       height: 8,
     },
     thumb: {
@@ -89,7 +89,7 @@ function UnitSpinner() {
                 </div>
             </Grid>
             <Grid item xs={12} align="center">
-                <PrettoSlider
+                <UnitSlider
                     onChange={handleProgressChange}
                     value={page.currentPage}
                     type="range"

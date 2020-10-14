@@ -7,21 +7,17 @@ import Calculator from './components/Calculator';
 import Header from './components/Header';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import './styling/App.css'
 
 const THEME = createMuiTheme({
   typography: {
     fontFamily: '"Montserrat", sans-serif, "Staatliches", cursive',
     h1: {
-      fontFamily: '"Staatliches", cursive'
+      fontFamily: '"Staatliches", cursive',
+      fontSize: "200px"
     },
     useNextVariants: true
   }
-  // typography: {
-  //   fontFamily: [
-  //     '"Montserrat"',
-  //     'sans-serif'
-  //   ].join(','),
-  // }
 });
 
 const initialState = {
@@ -45,19 +41,24 @@ function App() {
 
   return (<>
     <ThemeProvider theme={THEME}>
-      <Header />
-      <Container component="main" maxWidth="xs">
-        <CalculationContext.Provider value={{ state, dispatch }}>
-          <CssBaseline />
-          <Calculator />
-          <Box mt={5}>
-            <UnitSpinner />
-          </Box>
-          <Box mt={5}>
-            <Copyright />
-          </Box>
-        </CalculationContext.Provider>
-      </Container>
+      <div className="wrap">
+      <Box p={5} />
+        <Header />
+        <Container component="main" maxWidth="xs">
+          <CalculationContext.Provider value={{ state, dispatch }}>
+            <CssBaseline />
+            <Box p={6} />
+            <Calculator />
+            <Box mt={5}>
+              <UnitSpinner />
+            </Box>
+            <Box mt={5}>
+              <Copyright />
+            </Box>
+            <Box p={10} />
+          </CalculationContext.Provider>
+        </Container>
+      </div>
     </ThemeProvider>
   </>
   );

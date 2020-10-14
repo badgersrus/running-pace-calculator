@@ -1,10 +1,12 @@
 import React from 'react';
-import { Typography } from '@material-ui/core/';
+import { Typography, Box } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
+import '../styling/Header.css'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: theme.spacing(8)
+        color: "white",
+        fontSize: "100px"
     }
 }));
 
@@ -16,7 +18,7 @@ function Header() {
                 variant="h1" 
                 color="inherit"
                 align="center">
-                CALCULATE YOUR PACE
+                FIND YOUR PACE
             </Typography>
         </div>
     );

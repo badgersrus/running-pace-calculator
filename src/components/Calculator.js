@@ -8,6 +8,25 @@ import Time from './Time'
 import { CalculationContext } from '../App';
 import { ADD_PACE_SECONDS, ADD_PACE_MINUTES, ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, ADD_DISTANCE } from '../calculationReducer';
 
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: theme.spacing(1),
+        color: "white",
+    },
+    form: {
+        width: '100%',
+        marginTop: theme.spacing(3),
+    },
+    submit: {
+        backgroundColor: "#ffa64d",
+        color: "white",
+        margin: theme.spacing(3, 0, 2),
+    },
+}));
 
 function Calculator() {
     const { state, dispatch } = useContext(CalculationContext)
@@ -188,24 +207,5 @@ function Calculator() {
         </div>
     );
 }
-
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: theme.spacing(1)
-    },
-    form: {
-        width: '100%',
-        marginTop: theme.spacing(3),
-    },
-    submit: {
-        backgroundColor: "#ffa64d",
-        color: "white",
-        margin: theme.spacing(3, 0, 2),
-    }
-}));
 
 export default Calculator
