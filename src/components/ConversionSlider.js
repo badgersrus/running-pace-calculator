@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Slider } from '@material-ui/core/';
 import { units } from '../services/objects'
-import '../styling/UnitSpinner.css'
+import '../styling/ConversionSlider.css'
 import { withStyles } from '@material-ui/core/styles';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const UnitSlider = withStyles({
     root: {
-        color: '#d4867a',
-        height: 8,
+        // color: 'black',
+        // background: 'linear-gradient(90deg, rgba(230,164,154,1) 0%, rgba(255,255,255,1) 50%, rgba(227,154,142,1) 100%)',
+        height: 1,
     },
     thumb: {
-        height: 18,
-        width: 18,
-        backgroundColor: '#fff',
-        border: '2px solid currentColor',
-        marginTop: -8,
+        height: 13,
+        width: 13,
+        backgroundColor: 'transparent',
+        // border: '2px solid #bababa',
+        border: '2px solid white',
+        marginTop: -2,
         marginLeft: -12,
         '&:focus, &:hover, &$active': {
             boxShadow: 'inherit',
@@ -30,7 +32,8 @@ const UnitSlider = withStyles({
         borderRadius: 1,
     },
     rail: {
-        height: 1,
+        height: 10,
+        backgroundImage: 'linear-gradient(90deg, rgba(230,164,154,1) 0%, rgba(255,255,255,1) 50%, rgba(227,154,142,1) 100%)',
         borderRadius: 1,
     },
 })(Slider);
@@ -102,12 +105,12 @@ function UnitSpinner() {
                     <table>
                         <tr id="km-row">
                             {[...Array(9)].map((x, i) =>
-                                <td>{displayUnits.units[i].km}</td>
+                                <td style={{alignContent: "center"}}>{displayUnits.units[i].km}</td>
                             )}
                         </tr>
                         <tr id="mile-row">
                             {[...Array(9)].map((x, i) =>
-                                <td>{displayUnits.units[i].mile}</td>
+                                <td style={{alignContent: "center"}}>{displayUnits.units[i].mile}</td>
                             )}
                         </tr>
                     </table>

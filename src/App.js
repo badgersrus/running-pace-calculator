@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import { Container, Box, CssBaseline } from "@material-ui/core";
 import Copyright from './components/Copyright'
 import calculationReducer from './calculationReducer';
-import UnitSpinner from './components/UnitSpinner';
+import ConversionSlider from './components/ConversionSlider';
 import Calculator from './components/Calculator';
 import Header from './components/Header';
 import { createMuiTheme, withTheme } from '@material-ui/core/styles';
@@ -60,7 +60,7 @@ function App() {
             <Box p={6} />
             <Calculator />
             <Box p={6}>
-              <UnitSpinner />
+              <ConversionSlider />
             </Box>
             <Box mt={5}>
               {/* <Copyright /> */}
