@@ -54,7 +54,7 @@ function App() {
       <div className="wrap">
       <Box p={2} />
         <Header />
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="sm">
           <CalculationContext.Provider value={{ state, dispatch }}>
             <CssBaseline />
             <Box p={6} />

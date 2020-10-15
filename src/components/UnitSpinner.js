@@ -2,50 +2,58 @@ import React, { useEffect, useState } from 'react';
 import { Grid, Slider } from '@material-ui/core/';
 import { units } from '../services/objects'
 import '../styling/UnitSpinner.css'
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const UnitSlider = withStyles({
     root: {
-      color: '#d4867a',
-      height: 8,
+        color: '#d4867a',
+        height: 8,
     },
     thumb: {
-      height: 18,
-      width: 18,
-      backgroundColor: '#fff',
-      border: '2px solid currentColor',
-      marginTop: -8,
-      marginLeft: -12,
-      '&:focus, &:hover, &$active': {
-        boxShadow: 'inherit',
-      },
+        height: 18,
+        width: 18,
+        backgroundColor: '#fff',
+        border: '2px solid currentColor',
+        marginTop: -8,
+        marginLeft: -12,
+        '&:focus, &:hover, &$active': {
+            boxShadow: 'inherit',
+        },
     },
     active: {},
     valueLabel: {
-      left: 'calc(-50% + 4px)',
+        left: 'calc(-50% + 4px)',
     },
     track: {
-      height: 0,
-      borderRadius: 1,
+        height: 0,
+        borderRadius: 1,
     },
     rail: {
-      height: 1,
-      borderRadius: 1,
+        height: 1,
+        borderRadius: 1,
     },
-  })(Slider);
+})(Slider);
 
 function UnitSpinner() {
+
     let midWay = Math.floor((units.length / 2)) - 4
     const [page, setPage] = useState({
         currentPage: midWay,
         topIndex: midWay + 9,
         bottomIndex: midWay
     })
-    const [displayUnits, setDisplayUnits] = useState(units.slice(page.bottomIndex, page.topIndex))
+    const [displayUnits, setDisplayUnits] = useState({
+        units: units.slice(page.bottomIndex, page.topIndex),
+        showKey: false
+    })
 
     useEffect(() => {
         let tempArray = units.slice(page.bottomIndex, page.topIndex)
-        setDisplayUnits(tempArray)
+        setDisplayUnits({
+            ...displayUnits,
+            units: tempArray
+        })
     }, [page])
 
 
@@ -58,39 +66,73 @@ function UnitSpinner() {
         });
     }
 
+    function handleMouseUp() {
+        setDisplayUnits({
+            ...displayUnits,
+            showKey: false
+        })
+    }
+    function handleMouseDown() {
+        setDisplayUnits({
+            ...displayUnits,
+            showKey: true
+        })
+    }
+
     return (
+
         <Grid container spacing='1' justify="center">
-            <Grid item xs={12} align="center">
-                <div className="scrollhost">
+            <Grid item xs={1} container direction="column" spacing={2} align>
+                <Grid item xs>
+                    <ReactCSSTransitionGroup
+                        transitionName="fade"
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={300}>
+                        {displayUnits.showKey ?
+                            <div style={{ paddingTop: 3, marginLeft: -20, fontSize: 20, color: "white" }}>
+                                KM
+                            </div> : null
+                        }
+                    </ReactCSSTransitionGroup>
+                </Grid>
+                <Grid item xs></Grid>
+            </Grid>
+            <Grid item xs container direction="column" spacing={2}>
+                <Grid item xs align="center">
                     <table>
                         <tr id="km-row">
-                            <td>{displayUnits[0].km}</td>
-                            <td>{displayUnits[1].km}</td>
-                            <td>{displayUnits[2].km}</td>
-                            <td>{displayUnits[3].km}</td>
-                            <td>{displayUnits[4].km}</td>
-                            <td>{displayUnits[5].km}</td>
-                            <td>{displayUnits[6].km}</td>
-                            <td>{displayUnits[7].km}</td>
-                            <td>{displayUnits[8].km}</td>
+                            {[...Array(9)].map((x, i) =>
+                                <td>{displayUnits.units[i].km}</td>
+                            )}
                         </tr>
                         <tr id="mile-row">
-                            <td>{displayUnits[0].mile}</td>
-                            <td>{displayUnits[1].mile}</td>
-                            <td>{displayUnits[2].mile}</td>
-                            <td>{displayUnits[3].mile}</td>
-                            <td>{displayUnits[4].mile}</td>
-                            <td>{displayUnits[5].mile}</td>
-                            <td>{displayUnits[6].mile}</td>
-                            <td>{displayUnits[7].mile}</td>
-                            <td>{displayUnits[8].mile}</td>
+                            {[...Array(9)].map((x, i) =>
+                                <td>{displayUnits.units[i].mile}</td>
+                            )}
                         </tr>
                     </table>
-                </div>
+                </Grid>
+            </Grid>
+            <Grid item xs={1} container direction="column" spacing={2}>
+                <Grid item xs></Grid>
+                <Grid item xs>
+                    <ReactCSSTransitionGroup
+                        transitionName="fade"
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={300}>
+                        {displayUnits.showKey ?
+                            <div style={{ paddingRight: 5, fontSize: 20, color: "white"  }}>
+                                MILE
+                        </div> : null
+                        }
+                    </ReactCSSTransitionGroup>
+                </Grid>
             </Grid>
             <Grid item xs={12} align="center">
                 <UnitSlider
                     onChange={handleProgressChange}
+                    onMouseUp={handleMouseUp}
+                    onMouseDown={handleMouseDown}
                     value={page.currentPage}
                     type="range"
                     min={0}
@@ -99,7 +141,6 @@ function UnitSpinner() {
                 />
             </Grid>
         </Grid>
-
     )
 }
 

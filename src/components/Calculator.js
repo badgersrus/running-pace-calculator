@@ -192,7 +192,7 @@ function Calculator() {
     return (
         <div className={classes.paper}>
             <form className={classes.form} noValidate>
-                <Grid container spacing='5' justify="center">
+                <Grid container spacing={5} justify="center" maxWidth="sm">
                     <Grid item xs={12}>
                         <Time />
                     </Grid>

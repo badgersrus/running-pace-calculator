@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Grid, Input, Button, Box } from '@material-ui/core/';
+import React, { useContext, useEffect } from 'react';
+import { Grid, Input, Button } from '@material-ui/core/';
 import { CalculationContext } from '../App';
 import { ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, REMOVE_TIME, CLEAR_TIME } from '../calculationReducer';
 import { displayTime } from '../services/conversion';
@@ -121,8 +121,8 @@ function Time() {
     }
 
     return (
-        <Grid container spacing='1' justify="center">
-            <Grid item xs={2.5} align="center">
+        <Grid container spacing={1} justify="center" maxWidth="xs">
+            <Grid item xs={1.2} align="center">
                 <Input
                     placeholder="Hours"
                     style={{ width: 70}}
@@ -136,15 +136,17 @@ function Time() {
             <Grid item xs={3} align="center">
                 <Input
                     placeholder="Minutes"
+                    style={{ width: 80}}
                     value={displayTime(state.minutes)}
                     inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddMinutes}
                     color="secondary"
                 />
             </Grid>
-            <Grid item xs={3} align="center">
+            <Grid item xs={2} align="center">
                 <Input
                     placeholder="Seconds"
+                    style={{ width: 90}}
                     value={displayTime(state.seconds)}
                     inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddSeconds}
