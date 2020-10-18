@@ -16,10 +16,14 @@ const THEME = createMuiTheme({
       fontFamily: '"Staatliches", cursive',
       fontSize: "250px"
     },
+    h4: {
+      fontSize: "25px",
+      marginTop: "5px"
+    },
     useNextVariants: true
   },
   overrides: {
-    MuiInput: {
+    MuiInputBase: {
         root: {
             borderRadius: 0,
             color: "white",
@@ -52,14 +56,14 @@ function App() {
   return (<>
     <ThemeProvider theme={THEME}>
       <div className="wrap">
-      <Box p={2} />
+      <Box p={8} />
         <Header />
         <Container component="main" maxWidth="sm">
           <CalculationContext.Provider value={{ state, dispatch }}>
             <CssBaseline />
             <Box p={6} />
             <Calculator />
-            <Box p={6}>
+            <Box p={3}>
               <ConversionSlider />
             </Box>
             <Box mt={5}>

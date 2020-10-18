@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Grid, Input, Button, TextField, MenuItem } from '@material-ui/core/';
+import { Grid, Input, Button, TextField, MenuItem, InputBase, Select } from '@material-ui/core/';
 import { CalculationContext } from '../App';
 import { ADD_DISTANCE, ADD_DISTANCE_UNITS, REMOVE_DISTANCE, CLEAR_DISTANCE } from '../calculationReducer'
 import { distanceMetric } from '../services/objects'
@@ -48,27 +48,27 @@ function Distance() {
     return (
         <Grid container spacing='1' justify="center">
             <Grid item xs={3.5} align="center" style={{ display: 'flex' }}>
-                <Input
-                    style = {{width: 100}}
-                    placeholder="Distance"
+                <InputBase
+                    style = {{width: 250, fontSize: 90}}
+                    placeholder="5000"
                     value={state.distance}
                     inputProps={{ 'aria-label': 'description' }}
-                    onChange={handleAddDistance} 
-                    color="secondary"/>
+                    onChange={handleAddDistance}/>
             </Grid>
-            <Grid item xs={3}>
-                <TextField
-                    select
+            <Grid item xs={3} style={{ display: 'flex' }}>
+                <Select
+                    disableUnderline
                     value={state.distanceUnits}
                     onChange={handleAddDistanceUnits}>
                     {distanceMetric.map((option) => (
                         <MenuItem
+                            style = {{fontSize: 20}}
                             key={option.value}
                             value={option.value}>
                             {option.label}
                         </MenuItem>
                     ))}
-                </TextField>
+                </Select>
             </Grid>
             <Grid item xs={0.5}>
                 {state.isDistanceSet ?

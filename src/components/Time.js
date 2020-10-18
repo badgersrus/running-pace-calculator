@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Grid, Input, Button } from '@material-ui/core/';
+import { Grid, Input, Button, Typography, InputBase } from '@material-ui/core/';
 import { CalculationContext } from '../App';
 import { ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, REMOVE_TIME, CLEAR_TIME } from '../calculationReducer';
 import { displayTime } from '../services/conversion';
@@ -78,7 +78,7 @@ function Time() {
     }, [state.hours, state.minutes, state.seconds, state.isTimeSet])
 
     const handleAddHours = (event) => {
-        
+
         dispatch({
             type: ADD_TIME_HOURS,
             payload: {
@@ -122,41 +122,53 @@ function Time() {
 
     return (
         <Grid container spacing={1} justify="center" maxWidth="xs">
-            <Grid item xs={1.2} align="center">
-                <Input
-                    placeholder="Hours"
-                    style={{ width: 70}}
+            <Grid item xs={1} align="center">
+                <InputBase
+                    placeholder="00"
+                    style = {{fontSize: 30}}
                     value={displayTime(state.hours)}
-                    inputProps={{ 'aria-label': 'description' }}
+                    inputProps={{ 'aria-label': 'naked' }}
                     onChange={handleAddHours}
-                    color="secondary"
                 />
 
             </Grid>
-            <Grid item xs={3} align="center">
-                <Input
-                    placeholder="Minutes"
-                    style={{ width: 80}}
+            <Grid item xs={1} align="center">
+                <Typography
+                    variant="h4"
+                    color="inherit"
+                    align="center">
+                    :
+            </Typography>
+            </Grid>
+            <Grid item xs={1} align="center">
+                <InputBase
+                    placeholder="22"
+                    style = {{fontSize: 30}}
                     value={displayTime(state.minutes)}
                     inputProps={{ 'aria-label': 'description' }}
-                    onChange={handleAddMinutes}
-                    color="secondary"
-                />
+                    onChange={handleAddMinutes}/>
             </Grid>
-            <Grid item xs={2} align="center">
-                <Input
-                    placeholder="Seconds"
-                    style={{ width: 90}}
+            <Grid item xs={1} align="center">
+                <Typography
+                    variant="h4"
+                    color="inherit"
+                    align="center">
+                    :
+            </Typography>
+            </Grid>
+            <Grid item xs={1} align="center">
+                <InputBase
+                    placeholder="30"
+                    style = {{fontSize: 30}}
                     value={displayTime(state.seconds)}
                     inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddSeconds}
-                    color="secondary"
                 />
             </Grid>
-            <Grid item xs={0.5}>
+            <Grid item xs={1}>
                 {state.isTimeSet ?
                     <Button
-                        style={{ color: "white"}}
+                        style={{ color: "white" }}
                         onClick={clearTime}>x</Button>
                     : null
                 }

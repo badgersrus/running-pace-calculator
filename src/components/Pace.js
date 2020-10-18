@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Grid, Input, TextField, MenuItem, Box, Button, Hidden } from '@material-ui/core/';
+import { Grid, InputBase, Select, MenuItem, Box, Button, Typography } from '@material-ui/core/';
 import { CalculationContext } from '../App';
 import { ADD_PACE_MINUTES, ADD_PACE_SECONDS, ADD_PACE_UNITS, REMOVE_PACE, CLEAR_PACE } from '../calculationReducer'
 import { displayTime } from '../services/conversion'
@@ -80,27 +80,36 @@ function Pace() {
     return (
         <>
             <Grid container spacing='1' justify="center">
-                <Grid item xs='2' align="center" style={{ display: 'flex' }}>
-                    <Input
+                <Grid item xs={1} align="center" style={{ display: 'flex' }}>
+                    <InputBase
                         placeholder="04"
-                        style={{ width: 50 }}
+                        style = {{fontSize: 30}}
                         value={displayTime(state.paceMinutes)}
                         inputProps={{ 'aria-label': 'description' }}
                         onChange={handleAddPaceMinutes}
                         color="secondary" />
                 </Grid>
-                <Grid item xs='2' align="center" style={{ display: 'flex' }}>
-                    <Input
+                <Grid item xs={1} align="center">
+                    <Typography
+                        variant="h4"
+                        color="inherit"
+                        align="center">
+                        :
+                    </Typography>
+                </Grid>
+                <Grid item xs={1} align="center" style={{ display: 'flex' }}>
+                    <InputBase
                         placeholder="30"
-                        style={{ width: 50 }}
+                        style = {{fontSize: 30}}
                         value={displayTime(state.paceSeconds)}
                         inputProps={{ 'aria-label': 'description' }}
                         onChange={handleAddPaceSeconds}
                         color="secondary" />
                 </Grid>
-                <Grid alignItems="center" item xs='3' style={{ display: 'flex' }}>
-                    <TextField
-                        select
+                <Grid item xs={1} />
+                <Grid alignItems="center" item xs={1} style={{ display: 'flex' }}>
+                    <Select
+                        disableUnderline
                         value={state.paceUnits}
                         onChange={handleAddPaceUnits}>
                         {paceUnits.map((option) => (
@@ -108,18 +117,16 @@ function Pace() {
                                 {option.label}
                             </MenuItem>
                         ))}
-                    </TextField>
+                    </Select>
                 </Grid>
-                {/* <Hidden xsUp> */}
-                <Grid item xs={0.1}>
+                <Grid item xs={1}>
                     {state.isPaceSet ?
                         <Button
-                        style={{ color: "white" }}
-                        onClick={clearPace}>x</Button>
+                            style={{ color: "white" }}
+                            onClick={clearPace}>x</Button>
                         : null
                     }
                 </Grid>
-                    {/* </Hidden> */}
             </Grid>
             <Box mt={2}></Box>
         </>

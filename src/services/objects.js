@@ -1,11 +1,11 @@
 export const paceUnits = [
     {
         value: "kilometers",
-        label: "Km"
+        label: "/ Km"
     },
     {
         value: "miles",
-        label: "Mile"
+        label: "/ Mile"
     },
 ]
 

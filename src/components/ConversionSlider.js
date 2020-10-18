@@ -6,11 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const UnitSlider = withStyles({
-    root: {
-        // color: 'black',
-        // background: 'linear-gradient(90deg, rgba(230,164,154,1) 0%, rgba(255,255,255,1) 50%, rgba(227,154,142,1) 100%)',
-        height: 1,
-    },
     thumb: {
         height: 13,
         width: 13,
@@ -93,7 +88,7 @@ function UnitSpinner() {
                         transitionLeaveTimeout={300}>
                         {displayUnits.showKey ?
                             <div style={{ paddingTop: 3, marginLeft: -20, fontSize: 20, color: "white" }}>
-                                KM
+                                /KM
                             </div> : null
                         }
                     </ReactCSSTransitionGroup>
@@ -125,7 +120,7 @@ function UnitSpinner() {
                         transitionLeaveTimeout={300}>
                         {displayUnits.showKey ?
                             <div style={{ paddingRight: 5, fontSize: 20, color: "white"  }}>
-                                MILE
+                                /MILE
                         </div> : null
                         }
                     </ReactCSSTransitionGroup>

@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         fontFamily: '"Staatliches", cursive',
         fontSize: "30px",
-        // alignItems: "center",
         width: "300px",
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
         borderRadius: 3,
