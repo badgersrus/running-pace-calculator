@@ -5,7 +5,7 @@ import calculationReducer from './calculationReducer';
 import ConversionSlider from './components/ConversionSlider';
 import Calculator from './components/Calculator';
 import Header from './components/Header';
-import { createMuiTheme, withTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import './styling/App.css'
 

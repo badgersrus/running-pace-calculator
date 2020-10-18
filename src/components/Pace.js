@@ -1,11 +1,24 @@
 import React, { useContext, useEffect } from 'react';
-import { Grid, InputBase, Select, MenuItem, Box, Button, Typography } from '@material-ui/core/';
+import { Grid, InputBase, Select, MenuItem, Box, IconButton, Typography } from '@material-ui/core/';
 import { CalculationContext } from '../App';
 import { ADD_PACE_MINUTES, ADD_PACE_SECONDS, ADD_PACE_UNITS, REMOVE_PACE, CLEAR_PACE } from '../calculationReducer'
 import { displayTime } from '../services/conversion'
 import { paceUnits } from '../services/objects'
+import { DeleteOutline } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    font : {
+        fontFamily: '"Staatliches", cursive',
+    },    
+    fontLarge: {
+        fontFamily: '"Staatliches", cursive',
+        fontSize: 120
+    },
+}));
 
 function Pace() {
+    const classes = useStyles();
     const { state, dispatch } = useContext(CalculationContext)
 
     useEffect(() => {
@@ -79,11 +92,11 @@ function Pace() {
 
     return (
         <>
-            <Grid container spacing='1' justify="center">
-                <Grid item xs={1} align="center" style={{ display: 'flex' }}>
+            <Grid container  justify="center" spacing={1}>
+                <Grid item xs={3} align="center" style={{ display: 'flex' }}>
                     <InputBase
                         placeholder="04"
-                        style = {{fontSize: 30}}
+                        className={classes.fontLarge}
                         value={displayTime(state.paceMinutes)}
                         inputProps={{ 'aria-label': 'description' }}
                         onChange={handleAddPaceMinutes}
@@ -91,39 +104,43 @@ function Pace() {
                 </Grid>
                 <Grid item xs={1} align="center">
                     <Typography
-                        variant="h4"
+                        style={{ marginBottom: 10 }}
+                        className={classes.fontLarge}
                         color="inherit"
                         align="center">
                         :
                     </Typography>
                 </Grid>
-                <Grid item xs={1} align="center" style={{ display: 'flex' }}>
+                <Grid item xs={3} align="center" style={{ display: 'flex' }}>
                     <InputBase
                         placeholder="30"
-                        style = {{fontSize: 30}}
+                        className={classes.fontLarge}
                         value={displayTime(state.paceSeconds)}
                         inputProps={{ 'aria-label': 'description' }}
                         onChange={handleAddPaceSeconds}
                         color="secondary" />
                 </Grid>
-                <Grid item xs={1} />
-                <Grid alignItems="center" item xs={1} style={{ display: 'flex' }}>
+                <Grid alignItems="center" item xs={1} style={{ display: 'flex'}}>
                     <Select
                         disableUnderline
+                        className={classes.font}
                         value={state.paceUnits}
                         onChange={handleAddPaceUnits}>
                         {paceUnits.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
+                            <MenuItem key={option.value} value={option.value} className={classes.font}>
                                 {option.label}
                             </MenuItem>
                         ))}
                     </Select>
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item xs={1}/>
+                <Grid item xs={1}  alignItems="center" style={{ display: 'flex', marginLeft: -50}}>
                     {state.isPaceSet ?
-                        <Button
+                        <IconButton
                             style={{ color: "white" }}
-                            onClick={clearPace}>x</Button>
+                            onClick={clearPace}>
+                                <DeleteOutline />
+                        </IconButton>
                         : null
                     }
                 </Grid>

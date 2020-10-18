@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { Grid, Input, Button, Typography, InputBase } from '@material-ui/core/';
+import { Grid, Input, Button, Typography, InputBase, IconButton } from '@material-ui/core/';
+import { DeleteOutline } from "@material-ui/icons";
 import { CalculationContext } from '../App';
 import { ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, REMOVE_TIME, CLEAR_TIME } from '../calculationReducer';
 import { displayTime } from '../services/conversion';
@@ -122,7 +123,7 @@ function Time() {
 
     return (
         <Grid container spacing={1} justify="center" maxWidth="xs">
-            <Grid item xs={1} align="center">
+            <Grid item xs={1} align="center" style={{ marginLeft: 50}}>
                 <InputBase
                     placeholder="00"
                     style = {{fontSize: 30}}
@@ -165,11 +166,14 @@ function Time() {
                     onChange={handleAddSeconds}
                 />
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={1} />
+            <Grid item xs={1} style={{ display: 'flex', marginLeft: -20 }}>
                 {state.isTimeSet ?
-                    <Button
+                    <IconButton
                         style={{ color: "white" }}
-                        onClick={clearTime}>x</Button>
+                        onClick={clearTime}>
+                            <DeleteOutline />
+                    </IconButton>
                     : null
                 }
             </Grid>

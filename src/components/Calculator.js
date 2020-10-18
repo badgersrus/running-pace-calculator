@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Button } from '@material-ui/core/';
-import Grid from '@material-ui/core/Grid';
+import { Button, Grid, Box } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import Distance from './Distance';
 import Pace from './Pace';
@@ -191,17 +190,18 @@ function Calculator() {
     return (
         <div className={classes.paper}>
             <form className={classes.form} noValidate>
-                <Grid container spacing={5} justify="center" maxWidth="sm">
+                <Grid container spacing={1} justify="center" maxWidth="sm">
                     <Grid item xs={12}>
                         <Time />
                     </Grid>
                     <Grid item xs={12}>
-                        <Distance />
-                    </Grid>
-                    <Grid item xs={12}>
                         <Pace />
                     </Grid>
+                    <Grid item xs={12}>
+                        <Distance />
+                    </Grid>
                     <Grid item align="center"> 
+                    <Box mt={5} />
                     <Button
                         disabled={isButtonDisabled()}
                         fullWidth
