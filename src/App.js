@@ -68,7 +68,7 @@ function App() {
               <ConversionSlider />
             </Box>
             <Box mt={5}>
-              {/* <Copyright /> */}
+              <Copyright />
             </Box>
             <Box p={10} />
           </CalculationContext.Provider>

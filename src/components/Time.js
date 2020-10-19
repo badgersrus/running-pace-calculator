@@ -5,39 +5,12 @@ import { CalculationContext } from '../App';
 import { ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, REMOVE_TIME, CLEAR_TIME, SET_CALCULATING } from '../calculationReducer';
 import { displayTime } from '../services/conversion';
 import { inputStyles } from '../styling/inputs';
-import {
-    withStyles,
-} from '@material-ui/core/styles';
-
-const CssTextField = withStyles({
-    root: {
-        '& label.Mui-focused': {
-            color: 'white',
-        },
-        '& .MuiInput-underline:after': {
-            borderBottomColor: 'white',
-        },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: 'white',
-            },
-            '&:hover fieldset': {
-                borderColor: 'white',
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: 'white',
-            },
-        },
-    },
-})(Input);
 
 function Time() {
     const classes = inputStyles()
     const { state, dispatch } = useContext(CalculationContext)
 
     useEffect(() => {
-        console.log("useEffect")
-        console.log(state)
         if (state.hours.length === 3) {
             dispatch({
                 type: ADD_TIME_HOURS,
@@ -130,10 +103,10 @@ function Time() {
 
     return (
         <Grid container spacing={1} justify="center" maxWidth="xs">
-            <Grid item xs={1} align="center" style={{ marginLeft: 50}}>
+            <Grid item xs={1} align="center" style={{ marginLeft: 50 }}>
                 <InputBase
                     placeholder="00"
-                    style = {{fontSize: 30}}
+                    style={{ fontSize: 30 }}
                     value={displayTime(state.isCalculating, state.hours)}
                     inputProps={{ 'aria-label': 'naked' }}
                     onChange={handleAddHours}
@@ -151,10 +124,10 @@ function Time() {
             <Grid item xs={1} align="center">
                 <InputBase
                     placeholder="22"
-                    style = {{fontSize: 30}}
+                    style={{ fontSize: 30 }}
                     value={displayTime(state.isCalculating, state.minutes)}
                     inputProps={{ 'aria-label': 'description' }}
-                    onChange={handleAddMinutes}/>
+                    onChange={handleAddMinutes} />
             </Grid>
             <Grid item xs={1} align="center">
                 <Typography
@@ -167,7 +140,7 @@ function Time() {
             <Grid item xs={1} align="center">
                 <InputBase
                     placeholder="30"
-                    style = {{fontSize: 30}}
+                    style={{ fontSize: 30 }}
                     value={displayTime(state.isCalculating, state.seconds)}
                     inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddSeconds}
@@ -179,7 +152,7 @@ function Time() {
                     <IconButton
                         style={{ color: "white" }}
                         onClick={clearTime}>
-                            <DeleteOutline />
+                        <DeleteOutline />
                     </IconButton>
                     : null
                 }

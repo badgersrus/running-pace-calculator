@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     font : {
         fontFamily: '"Staatliches", cursive',
+        fontSize: 40
     },    
     fontLarge: {
         fontFamily: '"Staatliches", cursive',
@@ -140,7 +141,7 @@ function Pace() {
                     </Select>
                 </Grid>
                 <Grid item xs={1}/>
-                <Grid item xs={1}  alignItems="center" style={{ display: 'flex', marginLeft: -50}}>
+                <Grid item xs={1}  alignItems="center" style={{ display: 'flex', marginLeft: -110}}>
                     {state.isPaceSet ?
                         <IconButton
                             style={{ color: "white" }}

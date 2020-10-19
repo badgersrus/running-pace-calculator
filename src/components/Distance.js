@@ -7,16 +7,16 @@ import { DeleteOutline } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import '../styling/Distance.css'
 
-const useStyles = makeStyles((theme) => ({
-    font: {
-        fontFamily: '"Staatliches", cursive',
-    },
-}));
+// const useStyles = makeStyles((theme) => ({
+//     font: {
+//         fontFamily: '"Staatliches", cursive',
+//     },
+// }));
 
 
 function Distance() {
     const { state, dispatch } = useContext(CalculationContext)
-    const classes = useStyles();
+    // const classes = useStyles();
 
     useEffect(() => {
         if (state.distance === '') {
@@ -75,12 +75,12 @@ function Distance() {
             <Grid item xs={1} style={{ display: 'flex'}}>
                 <Select
                     disableUnderline
-                    className={classes.font}
+                    // className={classes.font}
                     value={state.distanceUnits}
                     onChange={handleAddDistanceUnits}>
                     {distanceMetric.map((option) => (
                         <MenuItem
-                            style = {{fontSize: 30}}
+                            style = {{fontSize: 20}}
                             key={option.value}
                             value={option.value}>
                             {option.label}
@@ -89,7 +89,7 @@ function Distance() {
                 </Select>
             </Grid>
             <Grid item xs={1.5}/>
-            <Grid item xs={1} style={{ display: 'flex', marginRight: -50 }}>
+            <Grid item xs={1} style={{ marginRight: -60 }}>
                 {state.isDistanceSet ?
                     <IconButton
                         style={{ color: "white"}}
