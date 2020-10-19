@@ -12,6 +12,7 @@ export const REMOVE_PACE = "REMOVE_PACE"
 export const CLEAR_TIME = "CLEAR_TIME"
 export const CLEAR_DISTANCE = "CLEAR_DISTANCE"
 export const CLEAR_PACE = "CLEAR_PACE"
+export const SET_CALCULATING = "SET_CALCULATING"
 
 function calculationReducer(state, action) {
     switch (action.type) {
@@ -112,6 +113,12 @@ function calculationReducer(state, action) {
                 paceMinutes: action.payload.paceMinutes,
                 paceSeconds: action.payload.paceSeconds,
                 isPaceSet: action.payload.isPaceSet
+            }
+        }
+        case SET_CALCULATING: {
+            return {
+                ...state,
+                isCalculating: action.payload.isCalculating,
             }
         }
         default:

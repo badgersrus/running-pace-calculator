@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Grid, MenuItem, InputBase, Select, IconButton } from '@material-ui/core/';
 import { CalculationContext } from '../App';
-import { ADD_DISTANCE, ADD_DISTANCE_UNITS, REMOVE_DISTANCE, CLEAR_DISTANCE } from '../calculationReducer'
+import { ADD_DISTANCE, ADD_DISTANCE_UNITS, REMOVE_DISTANCE, CLEAR_DISTANCE, SET_CALCULATING } from '../calculationReducer'
 import { distanceMetric } from '../services/objects'
 import { DeleteOutline } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
@@ -53,6 +53,13 @@ function Distance() {
                 isDistanceSet: false
             }
         });
+
+        dispatch({
+            type: SET_CALCULATING,
+            payload: {
+                isCalculating: false
+            }
+        });
     }
 
     return (
@@ -73,7 +80,6 @@ function Distance() {
                     onChange={handleAddDistanceUnits}>
                     {distanceMetric.map((option) => (
                         <MenuItem
-                            // className={classes.font}
                             style = {{fontSize: 30}}
                             key={option.value}
                             value={option.value}>

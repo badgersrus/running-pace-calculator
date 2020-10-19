@@ -5,7 +5,7 @@ import Distance from './Distance';
 import Pace from './Pace';
 import Time from './Time'
 import { CalculationContext } from '../App';
-import { ADD_PACE_SECONDS, ADD_PACE_MINUTES, ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, ADD_DISTANCE } from '../calculationReducer';
+import { ADD_PACE_SECONDS, ADD_PACE_MINUTES, ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, ADD_DISTANCE, SET_CALCULATING } from '../calculationReducer';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -177,6 +177,12 @@ function Calculator() {
     }
 
     function calculate() {
+        dispatch({
+            type: SET_CALCULATING,
+            payload: {
+                isCalculating: true
+            }
+        });
         state.isTimeSet && state.isDistanceSet ? calculatePace() :
             state.isDistanceSet && state.isPaceSet ? calculateTime() :
                 state.isPaceSet && state.isTimeSet ? calculateDistance() :

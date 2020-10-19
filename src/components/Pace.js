@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Grid, InputBase, Select, MenuItem, Box, IconButton, Typography } from '@material-ui/core/';
 import { CalculationContext } from '../App';
-import { ADD_PACE_MINUTES, ADD_PACE_SECONDS, ADD_PACE_UNITS, REMOVE_PACE, CLEAR_PACE } from '../calculationReducer'
+import { ADD_PACE_MINUTES, ADD_PACE_SECONDS, ADD_PACE_UNITS, REMOVE_PACE, CLEAR_PACE, SET_CALCULATING } from '../calculationReducer'
 import { displayTime } from '../services/conversion'
 import { paceUnits } from '../services/objects'
 import { DeleteOutline } from '@material-ui/icons';
@@ -88,6 +88,12 @@ function Pace() {
                 isPaceSet: false
             }
         });
+        dispatch({
+            type: SET_CALCULATING,
+            payload: {
+                isCalculating: false
+            }
+        });
     }
 
     return (
@@ -97,7 +103,7 @@ function Pace() {
                     <InputBase
                         placeholder="04"
                         className={classes.fontLarge}
-                        value={displayTime(state.paceMinutes)}
+                        value={displayTime(state.isCalculating, state.paceMinutes)}
                         inputProps={{ 'aria-label': 'description' }}
                         onChange={handleAddPaceMinutes}
                         color="secondary" />
@@ -115,7 +121,7 @@ function Pace() {
                     <InputBase
                         placeholder="30"
                         className={classes.fontLarge}
-                        value={displayTime(state.paceSeconds)}
+                        value={displayTime(state.isCalculating, state.paceSeconds)}
                         inputProps={{ 'aria-label': 'description' }}
                         onChange={handleAddPaceSeconds}
                         color="secondary" />

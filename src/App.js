@@ -45,7 +45,8 @@ const initialState = {
   paceMinutes: 0,
   paceSeconds: 0,
   paceUnits: "kilometers",
-  isPaceSet: false
+  isPaceSet: false,
+  isCalculating: false
 }
 
 export const CalculationContext = createContext()

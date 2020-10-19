@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Grid, Input, Button, Typography, InputBase, IconButton } from '@material-ui/core/';
 import { DeleteOutline } from "@material-ui/icons";
 import { CalculationContext } from '../App';
-import { ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, REMOVE_TIME, CLEAR_TIME } from '../calculationReducer';
+import { ADD_TIME_HOURS, ADD_TIME_MINUTES, ADD_TIME_SECONDS, REMOVE_TIME, CLEAR_TIME, SET_CALCULATING } from '../calculationReducer';
 import { displayTime } from '../services/conversion';
 import { inputStyles } from '../styling/inputs';
 import {
@@ -119,6 +119,13 @@ function Time() {
                 isTimeSet: false
             }
         });
+
+        dispatch({
+            type: SET_CALCULATING,
+            payload: {
+                isCalculating: false
+            }
+        });
     }
 
     return (
@@ -127,7 +134,7 @@ function Time() {
                 <InputBase
                     placeholder="00"
                     style = {{fontSize: 30}}
-                    value={displayTime(state.hours)}
+                    value={displayTime(state.isCalculating, state.hours)}
                     inputProps={{ 'aria-label': 'naked' }}
                     onChange={handleAddHours}
                 />
@@ -145,7 +152,7 @@ function Time() {
                 <InputBase
                     placeholder="22"
                     style = {{fontSize: 30}}
-                    value={displayTime(state.minutes)}
+                    value={displayTime(state.isCalculating, state.minutes)}
                     inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddMinutes}/>
             </Grid>
@@ -161,7 +168,7 @@ function Time() {
                 <InputBase
                     placeholder="30"
                     style = {{fontSize: 30}}
-                    value={displayTime(state.seconds)}
+                    value={displayTime(state.isCalculating, state.seconds)}
                     inputProps={{ 'aria-label': 'description' }}
                     onChange={handleAddSeconds}
                 />
