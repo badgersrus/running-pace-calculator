@@ -75,13 +75,14 @@ function Distance() {
             <Grid item xs={1} style={{ display: 'flex'}}>
                 <Select
                     disableUnderline
-                    // className={classes.font}
                     value={state.distanceUnits}
+                    defaultValue={distanceMetric.meters}
                     onChange={handleAddDistanceUnits}>
                     {distanceMetric.map((option) => (
                         <MenuItem
                             style = {{fontSize: 20}}
                             key={option.value}
+                            defaultValue={option.value=== "Meters"}
                             value={option.value}>
                             {option.label}
                         </MenuItem>

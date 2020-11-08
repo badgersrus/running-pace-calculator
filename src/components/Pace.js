@@ -141,7 +141,7 @@ function Pace() {
                     </Select>
                 </Grid>
                 <Grid item xs={1}/>
-                <Grid item xs={1}  alignItems="center" style={{ display: 'flex', marginLeft: -110}}>
+                <Grid item xs={1}  alignItems="center" style={{ display: 'flex', marginRight: -110}}>
                     {state.isPaceSet ?
                         <IconButton
                             style={{ color: "white" }}
